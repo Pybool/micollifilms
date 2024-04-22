@@ -1,0 +1,247 @@
+<script src="/assets/js/vendor/jquery-3.5.0.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/isotope.pkgd.min.js"></script>
+<script src="/assets/js/imagesloaded.pkgd.min.js"></script>
+<script src="/assets/js/jquery.magnific-popup.min.js"></script>
+<script src="/assets/js/owl.carousel.min.js"></script>
+<script src="/assets/js/jquery.odometer.min.js"></script>
+<script src="/assets/js/bootstrap-datepicker.min.js"></script>
+<script src="/assets/js/jquery.appear.js"></script>
+<script src="/assets/js/js_jquery.knob.js"></script>
+<script src="/assets/js/slick.min.js"></script>
+<script src="/assets/js/ajax-form.js"></script>
+<script src="/assets/js/wow.min.js"></script>
+<script src="/assets/js/aos.js"></script>
+<script src="/assets/js/plugins.js"></script>
+<script src="/assets/js/main.js"></script>
+<script src="/assets/js/astonish.js"></script>
+
+<script defer>
+  $(function() {
+    $(".video").click(function() {
+      console.log("Watching youtube video")
+      var theModal = $(this).data("target"),
+        videoSRC = $(this).attr("data-video"),
+        videoSRCauto = videoSRC + "?modestbranding=1&rel=0&controls=0&showinfo=0&html5=1&autoplay=1";
+      $(theModal + ' iframe').attr('src', videoSRCauto);
+      $(theModal + ' button.close').click(function() {
+        $(theModal + ' iframe').attr('src', videoSRC);
+      });
+    });
+  });
+</script>
+
+<script defer>
+  try {
+    if (localStorage.getItem("micolliCookieAccepted") != "accepted") {
+      $(".cookie-banner").delay(4000).fadeIn();
+      $("body").css("overflow", "hidden");
+    }
+
+    $(".accept").click(function (e) {
+      $(".cookie-banner").fadeOut();
+      $("body").css("overflow", "auto");
+    });
+  } catch { }
+
+  function acceptCookies(){
+    localStorage.setItem("micolliCookieAccepted", "accepted");
+  }
+</script>
+
+<script defer>
+  // index.ejs
+  function validateBookingForm() {
+    var name = document.getElementById("name")?.value || "";
+    var email = document.getElementById("email")?.value || "";
+    var phone = document.getElementById("phone")?.value || "";
+    var eventDate = document.getElementById("eventDate")?.value || "";
+    var eventCountry = document.getElementById("eventCountry")?.value || "";
+    var referralMedium = document.getElementById("referralMedium")?.value || "";
+    var preferredPackage = document.getElementById("preferredPackage")?.value || "";
+    var moreInfo = document.getElementById("moreInfo")?.value || "";
+
+    if (name.trim() === "") {
+      alert("Please enter your name.");
+      return false;
+    }
+
+    console.log("Event Date ", eventDate)
+
+    if (eventDate.trim() === "") {
+      alert("Please select an event date");
+      return false;
+    }
+
+    if (eventCountry.trim() === "") {
+      alert("Please select an event country");
+      return false;
+    }
+
+    if (phone.trim() === "") {
+      alert("Please select a phone number");
+      return false;
+    }
+
+    // Validate email
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.match(emailPattern)) {
+      alert("Please enter a valid email address.");
+      return false;
+    }
+
+    return {
+      name,
+      email,
+      phone,
+      eventDate,
+      eventCountry,
+      referralMedium,
+      preferredPackage,
+      moreInfo
+    };
+  }
+
+  const bookEvent = async () => {
+    const result = validateBookingForm();
+    if (result != false) {
+      const url = "/api/v1/book-event"; 
+
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(result),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to send data.");
+        }
+
+        const responseData = await response.json();
+        if (responseData?.status) {
+          return Swal.fire({
+            type: "success",
+            title: "Event Booking",
+            text: "Thank you for getting in touch with us.",
+            timer: 2000,
+          }).then(() => {
+            window.location.href = "/";
+          });
+        }
+        else{
+          return Swal.fire({
+            type: "error",
+            title: "Event Booking",
+            text: responseData?.message,
+            timer: 2000,
+        })
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        return Swal.fire({
+            type: "error",
+            title: "Event Booking",
+            text: "Something went wrong while processing your booking",
+            timer: 2000,
+        })
+      }
+    }
+  };
+
+</script>
+
+<script defer>
+
+  var slides = document.querySelectorAll(".slide");
+  var rbtn = document.querySelectorAll(".rad-btn");
+  var leftArrow = document.querySelector(".left");
+  var rightArrow = document.querySelector(".right");
+  var slideInt; // Store On Going Timer
+  var intTime = 5000;
+
+  // -----Iterate All Radio Navigation Buttons-----
+  rbtn.forEach(function (item, index) {
+    // Click Event for Buttons
+    item.addEventListener("click", function () {
+      manButtonNav(index);
+    });
+  });
+
+  // -----Click Events for Arrows-----
+  // Right Arrow
+  rightArrow?.addEventListener("click", function (e) {
+    e.preventDefault();
+    nextSlide();
+    clrInterval();
+  });
+
+  // Left Arrow
+  leftArrow?.addEventListener("click", function (e) {
+    e.preventDefault();
+    prevSlide();
+    clrInterval();
+  });
+
+  // -----Function for Radio Navigation-----
+  function manButtonNav(index) {
+    for (var i = 0; i < slides.length; i++) {
+      // Set Slide and Radio Navigation Button
+      if (i !== index) {
+        slides[i].classList.remove("curr");
+        rbtn[i].classList.remove("active");
+      } else {
+        slides[index].classList.add("curr");
+        rbtn[index].classList.add("active");
+      }
+    }
+    clrInterval();
+  }
+
+  // -----Function for the Next Slide-----
+  function nextSlide() {
+    var curr = document.querySelector(".curr");
+    var active = document.querySelector(".active");
+    // Unset Current Slide and Radio Button
+    curr?.classList.remove("curr");
+    active?.classList.remove("active");
+    // Set Next Slide and Radio Button
+    if (curr?.nextElementSibling) {
+      curr?.nextElementSibling.classList.add("curr");
+      active?.nextElementSibling.classList.add("active");
+    } else {
+      slides[0]?.classList.add("curr");
+      rbtn[0]?.classList.add("active");
+    }
+  }
+
+  // -----Function for the Previous Slide-----
+  function prevSlide() {
+    var curr = document.querySelector(".curr");
+    var active = document.querySelector(".active");
+    // Unset Current Slide and Radio Button
+    curr?.classList.remove("curr");
+    active?.classList.remove("active");
+    // Set Previous Slide and Radio Button
+    if (curr?.previousElementSibling) {
+      curr?.previousElementSibling.classList.add("curr");
+      active?.previousElementSibling.classList.add("active");
+    } else {
+      slides[slides.length - 1]?.classList.add("curr");
+      rbtn[rbtn.length - 1]?.classList.add("active");
+    }
+  }
+
+  // -----Function for Clear Interval-----
+  function clrInterval() {
+    clearInterval(slideInt);
+    slideInt = setInterval(nextSlide, intTime);
+  }
+
+  // -----Automatic Slide Navigation-----
+  slideInt = setInterval(nextSlide, intTime);
+
+</script>

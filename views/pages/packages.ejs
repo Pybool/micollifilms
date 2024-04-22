@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+<%- include('../partials/head'); %>
+   <style>
+      .image-background {
+         margin-top: -20px;
+         min-height: 100%;
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+         transition: background-image 2s ease-in-out;
+      }
+
+      .banner-area {
+         position: relative;
+      }
+
+      .overlay {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         background-color: rgba(0, 0, 0, 0.6);
+         z-index: 0;
+      }
+   </style>
+   <style>
+      .flex-rows {
+         display: flex;
+         flex-direction: row;
+         align-items: center;
+         justify-content: space-between;
+         gap: 50px;
+         flex-wrap: wrap;
+         margin-bottom: 40px;
+      }
+   </style>
+   <style>
+      .astonish {
+         visibility: visible;
+      }
+
+      @media (min-width: 768px) {
+         .astonish {
+            visibility: hidden;
+         }
+
+         .animated {
+            visibility: visible;
+         }
+      }
+
+      @media only screen and (max-width:600px) {
+         h1 {
+            font-size: 1.5rem !important;
+            font-weight: 700;
+         }
+
+         h2 {
+            font-size: 1.0rem !important
+         }
+
+         h4 {
+            font-size: 1rem !important
+         }
+
+         .banner-content > h2, h3 {
+            font-size: 2.7rem !important;
+            letter-spacing: 4px;
+
+         }
+      }
+   </style>
+
+   <body>
+      <%- include('../partials/preloader'); %>
+         <%- include('../partials/header'); %>
+            <%- include('../partials/cookiesperm'); %>
+               <section style="background: url('/assets/img/micolli/compressed/DAP_6337.png'); margin-top: -20px;
+            height: 100vh;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;" class="banner-area banner-bg image-background">
+                  <div class="overlay"></div>
+                  <div class="container">
+                     <div class="row">
+                        <div class="col-12">
+                           <div style="display:flex; flex-direction:column;justify-content: center;align-items: center;"
+                              class="banner-content astonish animated fadeInDown">
+                              <h2 style="text-align:center; position: relative; z-index: 1;">Packages</h2>
+                              <i style="color:white;font-size: larger;margin:40px!important">
+                                 <%= motto %>
+                              </i>
+                              <a style="background: white!important;color: black; position: relative; z-index: 1;margin-top:15px;"
+                                 href="/contact" class="btn">Book MICOLLI</a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </section>
+
+               <main style="color:gray!important" class="container">
+
+                  <div class="">
+                     <div class="weddingbase">
+                        <div class="wedd-overlay">
+                           <!-- <h2>Wedding Packages</h2> -->
+                           <div style="margin-top:40px;">
+                              <% context.forEach(function(package, index) { %>
+                                 <div>
+                                    <h2 class="">
+                                       <%= package?.name %>
+                                    </h2>
+
+                                    <div style="justify-content: center;" class="flex-rows">
+                                       <div class="wp-block-image">
+                                          <figure class="aligncenter size-large"><img loading="lazy" decoding="async" width="570"
+                                                height="400" src="<%= package?.imageSrc %>" alt=""
+                                                class="wp-image-2409">
+                                          </figure>
+                                       </div>
+                                       <ul>
+                                          <% package.features.forEach(function(feature, index) { %>
+                                             <li><i class="fal fa-check"></i> <span>
+                                                   <%= feature %>
+                                                </span></li>
+                                             <% }); %>
+                                       </ul>
+                                    </div>
+                                    <div class="wp-block-button aligncenter"><a class="btn has-background"
+                                          href="/contact#<%= package?.name?.replace('(package)','').replace('(Package)','')?.toLowerCase()?.trim() %>"
+                                          style="background-color:#9d7f3a">Book Us</a></div>
+                                 </div>
+                                 <hr>
+                                 <% }); %>
+                           </div>
+                           <p style="margin-bottom: 80px;"> For more info about our prices, just drop us an email or
+                              fill
+                              in the form! Please do get
+                              in touch using the form or emailing us at info@micollifilms.com
+                           </p>
+                        </div>
+
+                     </div>
+                  </div>
+               </main>
+               <%- include('../partials/footer'); %>
+               <%- include('../partials/scripts'); %>
+   </body>
+
+</html>

@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+<%- include('../partials/head'); %>
+  <style>
+    .image-background {
+      margin-top: -20px;
+      min-height: 100vh;
+      background-image: url(/assets/img/micolli/compressed/DAP_6317.png);
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover !important;
+      transition: background-image 3s ease-in-out;
+    }
+
+    .main-h2 {
+      font-size: 5.5rem !important;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* For mobile devices */
+    @media (max-width: 767px) {
+      .image-background {
+        background-size: cover !important;
+      }
+    }
+
+    .banner-area {
+      position: relative;
+      /* Ensure overlay and content are positioned relative to the section */
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      /* Dark overlay with transparency */
+      z-index: 0;
+      /* Put overlay behind other content */
+    }
+  </style>
+  <style>
+    /* If you wish to remove the astonish.js file, then also be sure to remove these styles. */
+    .astonish {
+      visibility: visible;
+    }
+
+    @media (min-width: 768px) {
+      .astonish {
+        visibility: hidden;
+      }
+
+      .animated {
+        visibility: visible;
+      }
+
+
+    }
+
+
+    @media only screen and (max-width:600px) {
+      .main-h2 {
+        font-size: 2.5rem !important
+      }
+
+      h3 {
+        font-size: 1.5rem !important
+      }
+
+      .img-name {
+        font-size: 0.8rem !important
+      }
+
+      .active {
+        margin-top: 100px !important;
+      }
+
+      .arrow {
+        display: none!important;
+      }
+
+
+    }
+  </style>
+
+  <style>
+    .testim {
+      /* width: 100%;
+      position: absolute; */
+      top: 50%;
+      -webkit-transform: translatey(-50%);
+      -moz-transform: translatey(-50%);
+      -ms-transform: translatey(-50%);
+      -o-transform: translatey(-50%);
+      transform: translatey(-50%);
+    }
+
+
+
+    .testim .wrap {
+      position: relative;
+      width: 100%;
+      /* max-width: 1020px; */
+      padding: 40px 20px;
+      margin: auto;
+    }
+
+    .testim .arrow {
+      display: block;
+      position: absolute;
+      color: #333;
+      cursor: pointer;
+      font-size: 2em;
+      top: 60%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      -moz-transform: translateY(-50%);
+      -o-transform: translateY(-50%);
+      transform: translateY(-50%);
+      -webkit-transition: all .3s ease-in-out;
+      -ms-transition: all .3s ease-in-out;
+      -moz-transition: all .3s ease-in-out;
+      -o-transition: all .3s ease-in-out;
+      transition: all .3s ease-in-out;
+      padding: 5px;
+      z-index: 22222222;
+    }
+
+    .testim .arrow:before {
+      cursor: pointer;
+    }
+
+    .testim .arrow:hover {
+      color: goldenrod;
+    }
+
+
+    .testim .arrow.left {
+      left: 0px;
+    }
+
+    .testim .arrow.right {
+      right: 0px;
+    }
+
+    .testim .dots {
+      text-align: center;
+      position: absolute;
+      width: 100%;
+      bottom: 60px;
+      left: 0;
+      display: block;
+      z-index: 3333;
+      height: 12px;
+    }
+
+    .testim .dots .dot {
+      list-style-type: none;
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1px solid goldenrod;
+      margin: 0 10px;
+      cursor: pointer;
+      -webkit-transition: all .5s ease-in-out;
+      -ms-transition: all .5s ease-in-out;
+      -moz-transition: all .5s ease-in-out;
+      -o-transition: all .5s ease-in-out;
+      transition: all .5s ease-in-out;
+      position: relative;
+    }
+
+    .testim .dots .dot.active,
+    .testim .dots .dot:hover {
+      background: goldenrod;
+      border-color: goldenrod;
+    }
+
+    .testim .dots .dot.active {
+      -webkit-animation: testim-scale .5s ease-in-out forwards;
+      -moz-animation: testim-scale .5s ease-in-out forwards;
+      -ms-animation: testim-scale .5s ease-in-out forwards;
+      -o-animation: testim-scale .5s ease-in-out forwards;
+      animation: testim-scale .5s ease-in-out forwards;
+    }
+
+    .testim .cont {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testim .cont>div {
+      text-align: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 0 0 70px 0;
+      opacity: 0;
+    }
+
+    .testim .cont>div.inactive {
+      opacity: 1;
+    }
+
+
+    .testim .cont>div.active {
+      position: relative;
+      opacity: 1;
+    }
+
+
+    .testim .cont div .img img {
+      display: block;
+      width: 100px;
+      height: 100px;
+      margin: auto;
+      border-radius: 50%;
+    }
+
+    .testim .cont div h2 {
+      color: goldenrod;
+      font-size: 1em;
+      margin: 15px 0;
+    }
+
+    .testim .cont div p {
+      font-size: 1.15em;
+      color: #333;
+      width: 98%;
+      margin: auto;
+    }
+
+    .testim .cont div.active .img img {
+      -webkit-animation: testim-show .5s ease-in-out forwards;
+      -moz-animation: testim-show .5s ease-in-out forwards;
+      -ms-animation: testim-show .5s ease-in-out forwards;
+      -o-animation: testim-show .5s ease-in-out forwards;
+      animation: testim-show .5s ease-in-out forwards;
+    }
+
+    .testim .cont div.active h2 {
+      -webkit-animation: testim-content-in .4s ease-in-out forwards;
+      -moz-animation: testim-content-in .4s ease-in-out forwards;
+      -ms-animation: testim-content-in .4s ease-in-out forwards;
+      -o-animation: testim-content-in .4s ease-in-out forwards;
+      animation: testim-content-in .4s ease-in-out forwards;
+    }
+
+    .testim .cont div.active p {
+      -webkit-animation: testim-content-in .5s ease-in-out forwards;
+      -moz-animation: testim-content-in .5s ease-in-out forwards;
+      -ms-animation: testim-content-in .5s ease-in-out forwards;
+      -o-animation: testim-content-in .5s ease-in-out forwards;
+      animation: testim-content-in .5s ease-in-out forwards;
+    }
+
+    .testim .cont div.inactive .img img {
+      -webkit-animation: testim-hide .5s ease-in-out forwards;
+      -moz-animation: testim-hide .5s ease-in-out forwards;
+      -ms-animation: testim-hide .5s ease-in-out forwards;
+      -o-animation: testim-hide .5s ease-in-out forwards;
+      animation: testim-hide .5s ease-in-out forwards;
+    }
+
+    .testim .cont div.inactive h2 {
+      -webkit-animation: testim-content-out .4s ease-in-out forwards;
+      -moz-animation: testim-content-out .4s ease-in-out forwards;
+      -ms-animation: testim-content-out .4s ease-in-out forwards;
+      -o-animation: testim-content-out .4s ease-in-out forwards;
+      animation: testim-content-out .4s ease-in-out forwards;
+    }
+
+    .testim .cont div.inactive p {
+      -webkit-animation: testim-content-out .5s ease-in-out forwards;
+      -moz-animation: testim-content-out .5s ease-in-out forwards;
+      -ms-animation: testim-content-out .5s ease-in-out forwards;
+      -o-animation: testim-content-out .5s ease-in-out forwards;
+      animation: testim-content-out .5s ease-in-out forwards;
+    }
+
+    @-webkit-keyframes testim-scale {
+      0% {
+        -webkit-box-shadow: 0px 0px 0px 0px #eee;
+        box-shadow: 0px 0px 0px 0px #eee;
+      }
+
+      35% {
+        -webkit-box-shadow: 0px 0px 10px 5px #eee;
+        box-shadow: 0px 0px 10px 5px #eee;
+      }
+
+      70% {
+        -webkit-box-shadow: 0px 0px 10px 5px #ea830e;
+        box-shadow: 0px 0px 10px 5px #ea830e;
+      }
+
+      100% {
+        -webkit-box-shadow: 0px 0px 0px 0px #ea830e;
+        box-shadow: 0px 0px 0px 0px #ea830e;
+      }
+    }
+
+    @-moz-keyframes testim-scale {
+      0% {
+        -moz-box-shadow: 0px 0px 0px 0px #eee;
+        box-shadow: 0px 0px 0px 0px #eee;
+      }
+
+      35% {
+        -moz-box-shadow: 0px 0px 10px 5px #eee;
+        box-shadow: 0px 0px 10px 5px #eee;
+      }
+
+      70% {
+        -moz-box-shadow: 0px 0px 10px 5px #ea830e;
+        box-shadow: 0px 0px 10px 5px #ea830e;
+      }
+
+      100% {
+        -moz-box-shadow: 0px 0px 0px 0px #ea830e;
+        box-shadow: 0px 0px 0px 0px #ea830e;
+      }
+    }
+
+    @-ms-keyframes testim-scale {
+      0% {
+        -ms-box-shadow: 0px 0px 0px 0px #eee;
+        box-shadow: 0px 0px 0px 0px #eee;
+      }
+
+      35% {
+        -ms-box-shadow: 0px 0px 10px 5px #eee;
+        box-shadow: 0px 0px 10px 5px #eee;
+      }
+
+      70% {
+        -ms-box-shadow: 0px 0px 10px 5px #ea830e;
+        box-shadow: 0px 0px 10px 5px #ea830e;
+      }
+
+      100% {
+        -ms-box-shadow: 0px 0px 0px 0px #ea830e;
+        box-shadow: 0px 0px 0px 0px #ea830e;
+      }
+    }
+
+    @-o-keyframes testim-scale {
+      0% {
+        -o-box-shadow: 0px 0px 0px 0px #eee;
+        box-shadow: 0px 0px 0px 0px #eee;
+      }
+
+      35% {
+        -o-box-shadow: 0px 0px 10px 5px #eee;
+        box-shadow: 0px 0px 10px 5px #eee;
+      }
+
+      70% {
+        -o-box-shadow: 0px 0px 10px 5px #ea830e;
+        box-shadow: 0px 0px 10px 5px #ea830e;
+      }
+
+      100% {
+        -o-box-shadow: 0px 0px 0px 0px #ea830e;
+        box-shadow: 0px 0px 0px 0px #ea830e;
+      }
+    }
+
+    @keyframes testim-scale {
+      0% {
+        box-shadow: 0px 0px 0px 0px #eee;
+      }
+
+      35% {
+        box-shadow: 0px 0px 10px 5px #eee;
+      }
+
+      70% {
+        box-shadow: 0px 0px 10px 5px #ea830e;
+      }
+
+      100% {
+        box-shadow: 0px 0px 0px 0px #ea830e;
+      }
+    }
+
+    @-webkit-keyframes testim-content-in {
+      from {
+        opacity: 0;
+        -webkit-transform: translateY(100%);
+        transform: translateY(100%);
+      }
+
+      to {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+      }
+    }
+
+    @-moz-keyframes testim-content-in {
+      from {
+        opacity: 0;
+        -moz-transform: translateY(100%);
+        transform: translateY(100%);
+      }
+
+      to {
+        opacity: 1;
+        -moz-transform: translateY(0);
+        transform: translateY(0);
+      }
+    }
+
+    @-ms-keyframes testim-content-in {
+      from {
+        opacity: 0;
+        -ms-transform: translateY(100%);
+        transform: translateY(100%);
+      }
+
+      to {
+        opacity: 1;
+        -ms-transform: translateY(0);
+        transform: translateY(0);
+      }
+    }
+
+    @-o-keyframes testim-content-in {
+      from {
+        opacity: 0;
+        -o-transform: translateY(100%);
+        transform: translateY(100%);
+      }
+
+      to {
+        opacity: 1;
+        -o-transform: translateY(0);
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes testim-content-in {
+      from {
+        opacity: 0;
+        transform: translateY(100%);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @-webkit-keyframes testim-content-out {
+      from {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+      }
+
+      to {
+        opacity: 0;
+        -webkit-transform: translateY(-100%);
+        transform: translateY(-100%);
+      }
+    }
+
+    @-moz-keyframes testim-content-out {
+      from {
+        opacity: 1;
+        -moz-transform: translateY(0);
+        transform: translateY(0);
+      }
+
+      to {
+        opacity: 0;
+        -moz-transform: translateY(-100%);
+        transform: translateY(-100%);
+      }
+    }
+
+    @-ms-keyframes testim-content-out {
+      from {
+        opacity: 1;
+        -ms-transform: translateY(0);
+        transform: translateY(0);
+      }
+
+      to {
+        opacity: 0;
+        -ms-transform: translateY(-100%);
+        transform: translateY(-100%);
+      }
+    }
+
+    @-o-keyframes testim-content-out {
+      from {
+        opacity: 1;
+        -o-transform: translateY(0);
+        transform: translateY(0);
+      }
+
+      to {
+        opacity: 0;
+        transform: translateY(-100%);
+        transform: translateY(-100%);
+      }
+    }
+
+    @keyframes testim-content-out {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      to {
+        opacity: 0;
+        transform: translateY(-100%);
+      }
+    }
+
+    @-webkit-keyframes testim-show {
+      from {
+        opacity: 0;
+        -webkit-transform: scale(0);
+        transform: scale(0);
+      }
+
+      to {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+      }
+    }
+
+    @-moz-keyframes testim-show {
+      from {
+        opacity: 0;
+        -moz-transform: scale(0);
+        transform: scale(0);
+      }
+
+      to {
+        opacity: 1;
+        -moz-transform: scale(1);
+        transform: scale(1);
+      }
+    }
+
+    @-ms-keyframes testim-show {
+      from {
+        opacity: 0;
+        -ms-transform: scale(0);
+        transform: scale(0);
+      }
+
+      to {
+        opacity: 1;
+        -ms-transform: scale(1);
+        transform: scale(1);
+      }
+    }
+
+    @-o-keyframes testim-show {
+      from {
+        opacity: 0;
+        -o-transform: scale(0);
+        transform: scale(0);
+      }
+
+      to {
+        opacity: 1;
+        -o-transform: scale(1);
+        transform: scale(1);
+      }
+    }
+
+    @keyframes testim-show {
+      from {
+        opacity: 0;
+        transform: scale(0);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @-webkit-keyframes testim-hide {
+      from {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        transform: scale(1);
+      }
+
+      to {
+        opacity: 0;
+        -webkit-transform: scale(0);
+        transform: scale(0);
+      }
+    }
+
+    @-moz-keyframes testim-hide {
+      from {
+        opacity: 1;
+        -moz-transform: scale(1);
+        transform: scale(1);
+      }
+
+      to {
+        opacity: 0;
+        -moz-transform: scale(0);
+        transform: scale(0);
+      }
+    }
+
+    @-ms-keyframes testim-hide {
+      from {
+        opacity: 1;
+        -ms-transform: scale(1);
+        transform: scale(1);
+      }
+
+      to {
+        opacity: 0;
+        -ms-transform: scale(0);
+        transform: scale(0);
+      }
+    }
+
+    @-o-keyframes testim-hide {
+      from {
+        opacity: 1;
+        -o-transform: scale(1);
+        transform: scale(1);
+      }
+
+      to {
+        opacity: 0;
+        -o-transform: scale(0);
+        transform: scale(0);
+      }
+    }
+
+    @keyframes testim-hide {
+      from {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      to {
+        opacity: 0;
+        transform: scale(0);
+      }
+    }
+
+    @media all and (max-width: 300px) {
+      body {
+        font-size: 14px;
+      }
+    }
+
+    @media all and (max-width: 500px) {
+      .testim .arrow {
+        font-size: 1.5em;
+      }
+
+      .testim .cont div p {
+        line-height: 25px;
+      }
+
+      #testim-content {
+        width: 30% !important;
+        margin-top: 100px;
+        height: fit-content
+      }
+
+      .img>h2 {
+        font-size: 0.7rem !important;
+      }
+
+
+
+    }
+  </style>
+
+
+  <body style="background-color: #141414!important;">
+    <%- include('../partials/preloader'); %>
+      <%- include('../partials/header'); %>
+
+        <main>
+          <%- include('../partials/cookiesperm'); %>
+            <section class="banner-area banner-bg image-background">
+              <div class="overlay"></div>
+              <div class="container">
+                <div class="row">
+                  <div class="col-12">
+                    <div style="display:flex; flex-direction:column;justify-content: center;align-items: center;"
+                      class="banner-content astonish animated fadeInDown">
+                      <h2 style="letter-spacing: 4px;" class="main-h2">
+                        <%= context.bannerMainFloatText %>
+                      </h2>
+                      <i style="color:#ffffff;font-size: larger;margin-top: 20px;">
+                        <%= context.motto %>
+                      </i>
+                      <h5 style="color:#ffffff;margin-top: 40px!important;">
+                        <%= context.bannerSubFloatText %>
+                      </h5>
+                      <a style="background: white!important;color: black !important; position: relative; z-index: 1;margin-top: 50px;"
+                        href="/contact" class="btn">Book MICOLLI</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- banner-area-end -->
+
+            <!-- about-us-area -->
+            <section data-animation="fadeInLeft" style="animation-duration: 1s;"
+              class="about-us-area about-style-two astonish">
+              <div class="container">
+                <div class="edgtf-row-grid-section-wrapper " style="background-color:#141414">
+                  <div class="edgtf-row-grid-section">
+                    <div class="vc_row wpb_row vc_row-fluid vc_custom_1592247390039">
+                      <div class="wpb_column vc_col-sm-12 vc_col-lg-4 vc_col-md-4">
+                        <div class="vc_column-inner">
+                          <div class="wpb_wrapper">
+                            <div class="edgtf-elements-holder   edgtf-one-column  edgtf-responsive-mode-768 ">
+                              <div class="edgtf-eh-item" <div class="edgtf-eh-item-inner">
+                                <div class="edgtf-eh-item-content edgtf-eh-custom-8486">
+                                  <div class="vc_empty_space" style="height: 62px"><span
+                                      class="vc_empty_space_inner"></span></div>
+                                  <div
+                                    class="edgtf-section-title-holder  edgtf-st-reverse edgtf-st-title-left edgtf-st-ratio-1-2 edgtf-st-large-space">
+                                    <div class="edgtf-st-inner">
+
+                                      <h3 class="edgtf-st-title" style="color: #ffffff">
+                                        Our Forte`</h3>
+                                      <!-- <div class="wpb_text_column wpb_content_element ">
+                                          <div class="wpb_wrapper"> -->
+                                      <div style="color: #ffffff" class="aboutUs">
+                                        Micolli Films excels in cinematic wedding films, blending compelling visuals
+                                        with documentary-style storytelling and narration, committed to crafting
+                                        attractive, smooth videos that capture true love stories.
+                                      </div>
+                                      <!-- </div>
+                                        </div> -->
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              </div>
+            </section>
+
+            <section data-animation="fadeInLeft" style="animation-duration: 1s;"
+              class="about-us-area about-style-two astonish pb-65">
+              <div class="container">
+                <div class="edgtf-row-grid-section-wrapper " style="background-color:#141414">
+                  <div class="edgtf-row-grid-section">
+                    <div class="vc_row wpb_row vc_row-fluid vc_custom_1592247390039">
+                      <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-4 vc_col-md-4">
+                        <div class="vc_column-inner">
+                          <div class="wpb_wrapper">
+                            <div class="edgtf-elements-holder   edgtf-one-column  edgtf-responsive-mode-768 ">
+                              <div class="edgtf-eh-item    " data-item-class="edgtf-eh-custom-8486"
+                                data-1024-1366="8px 0 0 37%" data-768-1024="0 0 0 15%" data-680-768="10px 0 15px 0"
+                                data-680="10px 0 15px 0">
+                                <div class="edgtf-eh-item-inner">
+                                  <div class="edgtf-eh-item-content edgtf-eh-custom-8486">
+                                    <div class="vc_empty_space" style="height: 62px"><span
+                                        class="vc_empty_space_inner"></span></div>
+                                    <div
+                                      class="edgtf-section-title-holder  edgtf-st-reverse edgtf-st-title-left edgtf-st-ratio-1-2 edgtf-st-large-space">
+                                      <div class="edgtf-st-inner">
+                                       
+                                        <h3 class="edgtf-st-title" style="color: #ffffff">
+                                          About Us</h3>
+                                        <!-- <div class="wpb_text_column wpb_content_element ">
+                                          <div class="wpb_wrapper"> -->
+                                        <div style="color: #ffffff" class="aboutUs">
+                                          <%= context.aboutUsText %>
+                                        </div>
+                                        <!-- </div>
+                                        </div> -->
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="services-area cerise-bg pb-20">
+              <div data-parallax-bg-speed="0.3"
+                class="vc_row wpb_row vc_row-fluid vc_custom_1598767391756 edgtf-parallax-row-holder edgtf-content-aligment-center"
+                style="background-position: 50% 53px;">
+                <div class="wpb_column vc_column_container vc_col-sm-12">
+                  <div class="vc_column-inner">
+                    <div class="wpb_wrapper">
+                      <div
+                        class="edgtf-section-title-holder  edgtf-st-reverse edgtf-st-title-left edgtf-st-ratio-1-2 edgtf-st-large-space">
+                        <div class="edgtf-st-inner">
+                          <h6 class="edgtf-st-text" style="color: #848484;margin: 0 0 15px 0">
+                            World class videographers</h6>
+                          <h3 class="edgtf-st-title" style="color: #ffffff;margin-bottom: 100px!important;">
+                            LATEST FROM OUR PORTFOLIO</h3>
+                        </div>
+                      </div>
+                      <div class="edgtf-elements-holder   edgtf-one-column  edgtf-responsive-mode-768 ">
+                        <div class="edgtf-eh-item">
+                          <div class="edgtf-eh-item-inner">
+                            <div class="edgtf-eh-item-content edgtf-eh-custom-8551"
+                              style="padding-left:15px;padding-right:15px">
+                              <div
+                                class="edgtf-portfolio-list-holder edgtf-pl-gallery edgtf-pl-light edgtf-normal-space edgtf-pl-three-columns edgtf-pl-gallery-overlay    edgtf-pl-pag-no-pagination     "
+                                data-type="gallery">
+                                <div class="mobile-latest edgtf-pl-inner edgtf-outer-space  clearfix">
+                                  <% context.latestFromPortFolioVideos.forEach(function(portFolioVideo) { %>
+                                    <article
+                                      class="zoom edgtf-pl-item edgtf-item-space  edgtf-pl-has-video post-723 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-romance">
+                                      <div class="edgtf-pl-item-inner">
+                                        <div class=" edgtf-video-button-play video">
+                                          <img data-lazyloaded="1" loading="lazy" data-placeholder-resp="1920x964"
+                                            src="<%= portFolioVideo.src %>" width="1920" height="964"
+                                            data-src="<%= portFolioVideo.src %>"
+                                            class="attachment-full size-full wp-post-image entered litespeed-loaded"
+                                            alt="" decoding="async" loading="lazy"
+                                            srcset="<%= portFolioVideo.src %> 1920w">
+
+                                        </div>
+
+
+                                        <div class="edgtf-pli-text-holder">
+                                          <div class="edgtf-pli-text-wrapper">
+                                            <div class="edgtf-pli-text">
+                                              <h4 itemprop="name" class="edgtf-pli-title entry-title">
+                                                <%= portFolioVideo.desc %>
+                                              </h4>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <a itemprop="url" class="edgtf-pli-link edgtf-block-drag-link edgtf-video-button-play video"
+                                          href="<%= portFolioVideo.href %>" target="_self"></a>
+                                      </div>
+                                    </article>
+                                    <% }); %>
+
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <h3 class="edgtf-st-title" style="color: #ffffff; margin-top:70px; text-align:center; margin-bottom: 120px;">
+              TESTIMONIALS</h3>
+
+            <section class="services-area pt-120 pb-60">
+              <div class="">
+
+                <div class="edgtf-row-grid-section-wrapper " style="background-color:#141414">
+
+                  <div class="edgtf-row-grid-section">
+                    <div class="vc_row wpb_row vc_row-fluid vc_custom_1592247390039">
+                      <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-12 vc_col-md-12">
+                        <div class="vc_column-inner">
+                          <div class="wpb_wrapper">
+                            <div class="container">
+                              <section style="margin-top: 120px!important;" id="testim" class="testim">
+                                <div class="testim-cover">
+                                  <div class="wrap">
+
+                                    <span id="right-arrow" class="arrow right fas fab fa-chevron-right"></span>
+                                    <span id="left-arrow" class="arrow left fas fab fa-chevron-left "></span>
+                                    <ul id="testim-dots" class="dots">
+                                      <li class="dot active"></li>
+                                      <li class="dot"></li>
+                                      <li class="dot"></li>
+                                      <li class="dot"></li>
+                                      <li class="dot"></li>
+                                    </ul>
+                                    <div id="testim-content" class="cont">
+
+                                      <div class="active">
+                                        <div class="img"><img
+                                            src="/assets/img/micolli/testimonials/Emmaunel __ Tanya .png" loading="lazy" alt=""></div>
+                                        <h2 class="img-name">Emmanuel & Tanya</h2>
+                                        <p style="color:white;">We were very pleased with Micolli Films for
+                                          their professionalism and seamless teamwork in
+                                          capturing
+                                          your wedding. Their film deeply moved me, creating a cherished
+                                          memory..</p>
+                                      </div>
+                                      <div>
+                                        <div class="img"><img
+                                            src="/assets/img/micolli/testimonials/Kenechi __ Okenwa 2.png" loading="lazy" alt=""></div>
+                                        <h2 class="img-name">Kenechi & Okenwa</h2>
+                                        <p style="color:white;">Making the trip from the United States to the UK
+                                          for my wedding was a huge step, and choosing
+                                          Micolli
+                                          Films on your friend's advice turned out to be an excellent decision.
+                                          They exceeded expectations,
+                                          documenting my ceremony with top-notch professionalism. The fact that
+                                          the final film stands out as
+                                          unique and continues to bring me and my wife joy. The quality and
+                                          effort they dedicated to capturing
+                                          our
+                                          special day. Having such a meaningful memento to look back was
+                                          incredibly special..</p>
+                                      </div>
+                                      <div>
+                                        <div class="img"><img
+                                            src="/assets/img/micolli/testimonials/Stephanie __ Adrain.png" loading="lazy" alt=""></div>
+                                        <h2 class="img-name">Stephanie & Adrain</h2>
+                                        <p style="color:white;">We are pleased we choose Micolli Films as our
+                                          wedding videography. The fact that Micolli too his
+                                          time to personally reach out, get to know me and your partner, to
+                                          understand our personalities
+                                          speaks volumes about his commitment. Entrusting him with the creative
+                                          freedom to capture everything
+                                          naturally has clearly paid off, judging by how much joy and emotion
+                                          our wedding video has brought
+                                          us. Micolli and his team were not just service providers but a
+                                          delightful addition to your special
+                                          day, and their work is something we are rightfully proud of.</p>
+                                      </div>
+
+                                      <div>
+                                        <div class="img"><img src="/assets/img/micolli/testimonials/Joe + Jade.png"
+                                           loading="lazy" alt=""></div>
+                                        <h2 class="img-name">Joel & Jade</h2>
+                                        <p style="color:white;"> Micolli films was recommended by a friend, and
+                                          he came through for you on your wedding day,
+                                          meticulously capturing every moment. Their presence was a delightful
+                                          addition to your celebration.
+                                          Both myself and your wife adore the wedding film they created, with
+                                          the dancing segment standing out
+                                          as a particular source of joy for me. It gives me a treasure trove of
+                                          memories to enjoy for many
+                                          years ahead.</p>
+                                      </div>
+                                      <div>
+                                        <div class="img"><img
+                                            src="/assets/img/micolli/testimonials/Charles  __ Mary.png" loading="lazy" alt="">
+                                        </div>
+                                        <h2 class="img-name">Charles & Mary</h2>
+                                        <p style="color:white;">Micolli Films and their team met my high
+                                          expectations, delivering on their promise as elite
+                                          videographers. We were satisfied with their work and the wedding films
+                                          they produced really
+                                          speaks
+                                          to
+                                          the quality of their service. They perfectly captured the essence of
+                                          your special day!.</p>
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                </div>
+                              </section>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </section>
+            <!-- <div class="vc_empty_space" style="height: 62px"><span
+              class="vc_empty_space_inner"></span>
+          </div>
+          <a itemprop="url" href="/portfolio" target="_self"
+            class="edgtf-btn edgtf-btn-medium edgtf-btn-outline edgtf-btn-light edgtf-hover-animation">
+            <span class="edgtf-btn-text">Video Portfolio</span>
+          </a>
+          <div class="vc_empty_space" style="height: 32px"><span
+              class="vc_empty_space_inner"></span>
+          </div> -->
+
+        </main>
+        <!-- main-area-emd -->
+
+        <!-- footer-area -->
+        <%- include('../partials/footer'); %>
+          <!-- footer-area-end -->
+
+          <!-- JS here -->
+          <%- include('../partials/scripts'); %>
+
+            <script>
+              // vars
+              'use strict'
+              var testim = document.getElementById("testim"),
+                testimDots = Array.prototype.slice.call(document.getElementById("testim-dots").children),
+                testimContent = Array.prototype.slice.call(document.getElementById("testim-content").children),
+                testimLeftArrow = document.getElementById("left-arrow"),
+                testimRightArrow = document.getElementById("right-arrow"),
+                testimSpeed = 4500,
+                currentSlide = 0,
+                currentActive = 0,
+                testimTimer,
+                touchStartPos,
+                touchEndPos,
+                touchPosDiff,
+                ignoreTouch = 30;
+              ;
+
+              window.onload = function () {
+
+                // Testim Script
+                function playSlide(slide) {
+                  for (var k = 0; k < testimDots.length; k++) {
+                    testimContent[k].classList.remove("active");
+                    testimContent[k].classList.remove("inactive");
+                    testimDots[k].classList.remove("active");
+                  }
+
+                  if (slide < 0) {
+                    slide = currentSlide = testimContent.length - 1;
+                  }
+
+                  if (slide > testimContent.length - 1) {
+                    slide = currentSlide = 0;
+                  }
+
+                  if (currentActive != currentSlide) {
+                    testimContent[currentActive].classList.add("inactive");
+                  }
+                  testimContent[slide].classList.add("active");
+                  testimDots[slide].classList.add("active");
+
+                  currentActive = currentSlide;
+
+                  clearTimeout(testimTimer);
+                  testimTimer = setTimeout(function () {
+                    playSlide(currentSlide += 1);
+                  }, testimSpeed)
+                }
+
+                testimLeftArrow.addEventListener("click", function () {
+                  playSlide(currentSlide -= 1);
+                })
+
+                testimRightArrow.addEventListener("click", function () {
+                  playSlide(currentSlide += 1);
+                })
+
+                for (var l = 0; l < testimDots.length; l++) {
+                  testimDots[l].addEventListener("click", function () {
+                    playSlide(currentSlide = testimDots.indexOf(this));
+                  })
+                }
+
+                playSlide(currentSlide);
+
+                // keyboard shortcuts
+                document.addEventListener("keyup", function (e) {
+                  switch (e.keyCode) {
+                    case 37:
+                      testimLeftArrow.click();
+                      break;
+
+                    case 39:
+                      testimRightArrow.click();
+                      break;
+
+                    case 39:
+                      testimRightArrow.click();
+                      break;
+
+                    default:
+                      break;
+                  }
+                })
+
+                testim.addEventListener("touchstart", function (e) {
+                  touchStartPos = e.changedTouches[0].clientX;
+                })
+
+                testim.addEventListener("touchend", function (e) {
+                  touchEndPos = e.changedTouches[0].clientX;
+
+                  touchPosDiff = touchStartPos - touchEndPos;
+
+                  console.log(touchPosDiff);
+                  console.log(touchStartPos);
+                  console.log(touchEndPos);
+
+
+                  if (touchPosDiff > 0 + ignoreTouch) {
+                    testimLeftArrow.click();
+                  } else if (touchPosDiff < 0 - ignoreTouch) {
+                    testimRightArrow.click();
+                  } else {
+                    return;
+                  }
+
+                })
+              }
+            </script>
+
+  </body>
+
+</html>

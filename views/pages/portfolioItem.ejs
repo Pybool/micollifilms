@@ -1,0 +1,168 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+<%- include('../partials/head'); %>
+    <style>
+        /* You can adjust the width of the modal content if needed */
+        .modal-content {
+            width: 100%;
+            background-color: black;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .modal-dialog {
+                max-width: 80%;
+                margin: 1.75rem auto;
+            }
+        }
+
+        @media only screen and (max-width:600px) {
+            h2.title {
+                font-size: 1.5rem !important
+            }
+
+            .banner-content>h2,
+            h3 {
+                font-size: 2.5rem !important
+            }
+
+            .edgtf-st-title-column h3 {
+                font-size: 1.8rem !important
+            }
+
+            h4 {
+                font-size: 0.7rem !important
+            }
+
+            .banner-content h4 {
+                font-size: 0.9rem !important
+            }
+
+        }
+
+
+        .image-background {
+            margin-top: -20px;
+            min-height: 100%;
+            height: 100vh;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            transition: background-image 2s ease-in-out;
+
+        }
+
+        .banner-area {
+            position: relative;
+            /* Ensure overlay and content are positioned relative to the section */
+        }
+
+        .banner-play {
+            /* height: 100vh; */
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            /* Dark overlay with transparency */
+            z-index: 0;
+            /* Put overlay behind other content */
+        }
+    </style>
+    <style>
+        .astonish {
+            visibility: visible;
+        }
+
+        @media (min-width: 768px) {
+            .astonish {
+                visibility: hidden;
+            }
+
+            .animated {
+                visibility: visible;
+            }
+        }
+    </style>
+
+    <script>
+        function showModal() {
+            console.log("Showing Modal ")
+            const videoModal = document.getElementById('videoModal');
+
+            if (videoModal) {
+                videoModal.style.display = "block";
+                videoModal.classList.add("show");
+            }
+            console.log("Video modal element:", videoModal);
+            const modalBackdrop = document.querySelector('.modal-backdrop');
+            if (modalBackdrop) {
+                modalBackdrop.style.display = "block";
+            }
+        }
+    </script>
+
+    <body>
+        <%- include('../partials/preloader'); %>
+            <%- include('../partials/header'); %>
+                <%- include('../partials/videomodal'); %>
+                    <main>
+                        <%- include('../partials/cookiesperm'); %>
+                            <div class="edgtf-portfolio-single-holder">
+                                <div class="vc_row wpb_row vc_row-fluid">
+                                    <div class="wpb_column vc_column_container vc_col-sm-12">
+                                        <div class="vc_column-inner">
+                                            <div class="wpb_wrapper">
+                                                <div class="edgtf-video-button-holder  edgtf-vb-has-img">
+                                                    <div class="banner-play edgtf-video-button-image">
+                                                        <img style="height:100%" width="1920" src="<%= context.src %>"
+                                                            class="attachment-full size-full" alt="" decoding="async"
+                                                            srcset="<%= context.src %> 1920w">
+                                                    </div>
+
+                                                    <a style="cursor: pointer;" data-video="<%= context?.videoUrl %>" data-toggle="modal"
+                                                        onclick="showModal()" data-target="#videoModal"
+                                                        class="edgtf-video-button-play video" href="javascript:void(0)"
+                                                        data-rel="prettyPhoto[video_button_pretty_photo_775]">
+
+                                                        <span class="edgtf-video-button-play-inner">
+                                                            <h2 class="title" style="color:white">
+                                                                <%= context?.id.replaceAll("-", " + " ).toUpperCase() %>
+                                                            </h2>
+                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                                                                y="0px" width="41.917px" height="45.998px"
+                                                                viewBox="0 0 41.917 45.998"
+                                                                enable-background="new 0 0 41.917 45.998"
+                                                                xml:space="preserve">
+                                                                <g>
+                                                                    <path fill="none" stroke="#FFFFFF" stroke-width="2"
+                                                                        stroke-miterlimit="10" d="M3.183,44.579
+    c-0.864,0.474-1.561,0.056-1.561-0.921V2.623c0-0.977,0.697-1.395,1.561-0.921l37.022,20.574c0.864,0.474,0.864,1.255,0,1.729
+    L3.183,44.579z"></path>
+                                                                </g>
+                                                            </svg>
+                                                        </span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                    </main>
+                    <%- include('../partials/footer'); %>
+                    <%- include('../partials/scripts'); %>
+
+    </body>
+
+</html>

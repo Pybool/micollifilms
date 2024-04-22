@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+<%- include('../partials/head'); %>
+  <style>
+    .image-background {
+      margin-top: -20px;
+      min-height: 100%;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      transition: background-image 2s ease-in-out;
+
+    }
+
+    .flex-row-wrap{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .banner-area {
+      position: relative;
+      /* Ensure overlay and content are positioned relative to the section */
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      /* Dark overlay with transparency */
+      z-index: 0;
+      /* Put overlay behind other content */
+    }
+  </style>
+  <style>
+    /* If you wish to remove the astonish.js file, then also be sure to remove these styles. */
+    .astonish {
+      visibility: visible;
+    }
+
+    @media (min-width: 768px) {
+      .astonish {
+        visibility: hidden;
+      }
+
+      .animated {
+        visibility: visible;
+      }
+    }
+
+    @media only screen and (max-width:600px) {
+      div.desc h2 {
+        font-size: 1.4rem !important
+      }
+
+      div.edgtf-st-inner h2 {
+        font-size: 1.2rem !important;
+        font-weight: 900;
+        /* margin-bottom: 60px; */
+
+      }
+
+      h4.sidetext {
+        font-size: 15px !important;
+        margin-bottom: 15px !important;
+      }
+
+    }
+  </style>
+
+  <body>
+    <!-- preloader-start -->
+    <%- include('../partials/preloader'); %>
+      <!-- preloader-end -->
+
+      <!-- header-area -->
+      <%- include('../partials/header'); %>
+        <!-- header-area-end -->
+
+        <!-- main-area -->
+        <main>
+          <!-- banner-area -->
+          <%- include('../partials/cookiesperm'); %>
+            <section style="background: url('<%= context.bannerImage.image %>'); margin-top: -20px;
+            height: 100vh;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;" class="banner-area banner-bg image-background">
+              <div class="overlay"></div>
+              <div class="container">
+                <div class="row">
+                  <div class="col-12">
+                    <div style="display:flex; flex-direction:column;justify-content: center;align-items: center;"
+                      class="banner-content astonish animated fadeInDown">
+                      <h2 style="text-align:center; position: relative; z-index: 1;">ABOUT US</h2>
+                      <i style="color:white;font-size: larger;margin:40px!important">
+                        <%= motto %>
+                      </i>
+                      <a style="background: white!important;color: black; position: relative; z-index: 1;margin-top:15px;"
+                        href="/contact" class="btn">Book MICOLLI</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="pc" data-animation="fadeInLeft" style="animation-duration: 1s;margin-top: 50px;"
+              class="about-us-area about-style-two pt-120 pb-60 astonish">
+              <div class="edgtf-row-grid-section-wrapper ">
+                <div class="edgtf-row-grid-section">
+                  <div style="flex-wrap: nowrap;" class="row">
+                    <!-- <div class="wpb_column vc_column_container vc_col-sm-4">
+                      <div class="vc_column-inner">
+                        <div class="wpb_wrapper">
+                          <div class="edgtf-elements-holder   edgtf-one-column  edgtf-responsive-mode-768 ">
+                            <div class="edgtf-eh-item   edgtf-horizontal-alignment-right "
+                              data-item-class="edgtf-eh-custom-8001" data-1366-1600="0 0 0 0" data-1024-1366="0 0 0 0"
+                              data-768-1024="0 0" data-680-768="0 0">
+                              <div class="edgtf-eh-item-inner">
+                                <div class="edgtf-eh-item-content edgtf-eh-custom-8001" style="padding: 0 30px 0 27px">
+                                  <div class="wpb_text_column wpb_content_element ">
+                                    <div class="wpb_wrapper">
+                                      <h4 class="sidetext">
+                                        <%= context.aboutUsSideText %>
+                                      </h4>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+                    <div class="wpb_column vc_column_container vc_col-sm-4">
+                      <div class="vc_column-inner">
+                        <div class="wpb_wrapper">
+                          <div class="edgtf-elements-holder   edgtf-one-column  edgtf-responsive-mode-768 ">
+                            <div class="edgtf-eh-item    " data-item-class="edgtf-eh-custom-5927" data-680="12px 0 0 0">
+                              <div class="edgtf-eh-item-inner">
+                                <div class="edgtf-eh-item-content edgtf-eh-custom-5927" style="padding: 12px 6% 0 0">
+                                  <div class="wpb_text_column wpb_content_element ">
+                                    <div class="wpb_wrapper">
+                                      <span class="edgtf-dropcaps edgtf-normal" style="color: #000">
+                                        <span class="edgtf-dropcaps-inner">
+                                          H </span>
+                                      </span>
+                                      <p class="big">aving work from a diverse career in TV, covering sports and
+                                        commercials. Transitioning to wedding cinematographer was initially a hobby but
+                                        soon became a passion. With a strong admiration for cinema, my inspiration came
+                                        from a notable cinematographer, striving to produce the best possible movies.
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="wpb_column vc_column_container vc_col-sm-4">
+                      <div class="vc_column-inner">
+                        <div class="wpb_wrapper">
+                          <div class="edgtf-elements-holder   edgtf-one-column  edgtf-responsive-mode-768 ">
+                            <div class="edgtf-eh-item    " data-item-class="edgtf-eh-custom-7859">
+                              <div class="edgtf-eh-item-inner">
+                                <div class="edgtf-eh-item-content edgtf-eh-custom-7859">
+                                  <div class="wpb_text_column wpb_content_element ">
+                                    <div class="wpb_wrapper">
+                                      <p class="big">My goal is to capture and convey authentic love stories through a
+                                        documentary-style approach with narrative elements, ensuring each film is of
+                                        high quality and tailored to each couple’s unique personality.
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="mobile" data-animation="fadeInLeft" style="animation-duration: 1s;"
+              class="about-us-area about-style-two pt-120 pb-60 astonish">
+              <div class="edgtf-row-grid-section-wrapper ">
+                <div class="">
+                  <div style="margin: 10px;" class="">
+                    <h4 class="sidetext">
+                      <%= context.aboutUsSideText %>
+                    </h4>
+
+                    <p style="margin-top: 20px;" class="big">Having work from a diverse career in TV, covering sports and
+                      commercials. Transitioning to wedding cinematographer was initially a hobby but
+                      soon became a passion. With a strong admiration for cinema, my inspiration came
+                      from a notable cinematographer, striving to produce the best possible movies we
+                      have seen.
+                    </p>
+
+                    <p class="big">My goal is to capture and convey authentic love stories through a
+                      documentary-style approach with narrative elements, ensuring each film is of
+                      high quality and tailored to each couple’s unique personality.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- about-us-area-end -->
+
+            <!-- <section class="services-area cerise-bg pt-10 pb-65">
+              <div style="margin-left:10px">
+                <div class="slider">
+                  <input type="radio" name="sld" id="sld1">
+                  <input type="radio" name="sld" id="sld2">
+                  <input type="radio" name="sld" id="sld3">
+                  <input type="radio" name="sld" id="sld4">
+                  <input type="radio" name="sld" id="sld5">
+
+                  <div class="slides">
+                    <div class="slide curr">
+                      <img src="<%= context?.aboutUsCarousel[0].imageSrc %>" alt="">
+                      <div class="desc">
+                        <h2>
+                          <%= context?.aboutUsCarousel[0].title %>
+                        </h2>
+                        <p class="description">
+                          <%= context?.aboutUsCarousel[0].description %>
+                        </p>
+                        <a href="#">View More</a>
+                      </div>
+                    </div>
+                    <% context.aboutUsCarousel.forEach(function(slide, index) { %>
+                      <% if (index> 0) { %> 
+                        <div class="slide">
+                          <img src="<%= slide?.imageSrc %>" alt="">
+                          <div class="desc">
+                            <h2>
+                              <%= slide?.title %>
+                            </h2>
+                            <p class="description mobile">
+                              <%= slide?.description %>
+                            </p>
+                            <a href="#">View More</a>
+                          </div>
+                        </div>
+                        <% } %>
+                          <% }); %>
+                  </div>
+
+                  <a style="opacity:0" href="#" class="arrow left"><i class="fas fa-arrow-circle-left"></i></a>
+                  <a style="opacity:0" href="#" class="arrow right"><i class="fas fa-arrow-circle-right"></i></a>
+                  <div style="opacity:0" class="rad-nav">
+                    <label for="sld1" class="rad-btn active"></label>
+                    <label for="sld2" class="rad-btn"></label>
+                    <label for="sld3" class="rad-btn"></label>
+                    <label for="sld4" class="rad-btn"></label>
+                    <label for="sld5" class="rad-btn"></label>
+                  </div>
+                </div>
+              </div>
+
+            </section> -->
+
+            <!-- services-area -->
+            <section style="padding-top: 10vh;" class="services-area cerise-bg pb-65">
+              <div data-parallax-bg-speed="0.3"
+                class="vc_row wpb_row vc_row-fluid vc_custom_1598767391756 edgtf-parallax-row-holder edgtf-content-aligment-center"
+                style=" background-position: 50% 53px;">
+                <div class="wpb_column vc_column_container vc_col-sm-12">
+                  <div class="vc_column-inner">
+                    <div class="wpb_wrapper">
+                      <div
+                        class="edgtf-section-title-holder  edgtf-st-reverse edgtf-st-title-left edgtf-st-ratio-1-2 edgtf-st-large-space">
+                        <div class="edgtf-st-inner">
+                          <h2 class="edgtf-st-text" style="color: #848484;margin: 0 0 15px 15px">
+                            The man behind the camera</h2>
+
+                        </div>
+                      </div>
+                      <div class="flex-row-wrap">
+                        <div class="col-xl-2 col-md-3 col-xs-12">
+                          <% context.aboutUsTeam.forEach(function(teamMember, index) { %>
+                            <div style="border-radius: 50%;">
+                              <img style="width: 200px;height: 190px;object-fit: cover; border-radius: 50%;"
+                                data-lazyloaded="1" src="<%= teamMember.src %>" data-src="<%= teamMember.src %>"
+                                class="" alt="" decoding="async" loading="lazy" srcset="<%= teamMember.src %>">
+                            </div>
+
+                            <% }); %>
+
+                        </div>
+                        <div class="col-xl-6 col-md-6">
+                          My passion for capturing the essence of moments through my camera has shaped a career where
+                          the joy of my clients, especially brides and grooms, stands as the most rewarding aspect. My
+                          focus on details, expressions, emotions, and the environment allows me to create deeply
+                          emotive and memorable images. Turning my passion into your profession has not only fulfilled
+                          me, but also significantly impacted the lives of those who watch my videos . ~  <i style="font-size: larger;">Micheal</i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <!-- services-area-end -->
+
+        </main>
+        <!-- main-area-emd -->
+
+        <!-- footer-area -->
+        <%- include('../partials/footer'); %>
+          <!-- footer-area-end -->
+
+          <!-- JS here -->
+          <%- include('../partials/scripts'); %>
+
+  </body>
+
+</html>

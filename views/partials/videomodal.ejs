@@ -1,0 +1,73 @@
+<script>
+    function showModal() {
+        console.log("Showing Modal ")
+        const videoModal = document.getElementById('videoModal');
+        
+        if (videoModal) {
+            videoModal.style.display = "block";
+            videoModal.classList.add("show");
+        }
+        console.log("Video modal element:", videoModal);
+        const modalBackdrop = document.querySelector('.modal-backdrop');
+        if (modalBackdrop) {
+            modalBackdrop.style.display = "block";
+        }
+    }
+    function dismissVideoModal() {
+        var videoElement;
+        var video = document.querySelector("#videoModal iframe");
+        console.log(video)
+        try {
+
+            // Get a reference to the video modal element
+            const videoModal = document.getElementById('videoModal');
+            console.log("Video modal element:", videoModal);
+            if (videoModal) {
+                videoModal.classList.remove("show");
+            }
+            const modalBackdrop = document.querySelector('.modal-backdrop');
+            console.log("Modal backdrop element:", modalBackdrop);
+            if (modalBackdrop) {
+                // modalBackdrop.classList.remove("show");
+                modalBackdrop.style.display = "none";
+            }
+
+            var iframe = document.getElementById('videoIframe');
+            var iframeContentWindow = iframe.contentWindow;
+            var iframeDocument = iframeContentWindow.document;
+            var videoElement = iframeDocument.querySelector('video');
+            videoElement?.pause()
+            $('#videoModal')?.modal('hide');
+        }
+        catch (err) {
+            console.log("err", err)
+            window.location.reload()
+            videoElement?.pause()
+            $('#videoModal').modal('hide');
+        }
+    };
+
+    $('#videoModal').on('hidden.bs.modal', function (e) {
+
+
+        // video?.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+    });
+</script>
+<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 style="color:white" class="modal-title" id="myModalLabel">
+                    <%= context?.id.replaceAll("-", " " ).toUpperCase() %>
+                </h5>
+                <button onclick="dismissVideoModal()" id="closeModalBtn" type="button" class="close"><span
+                        aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div style="height: 500px;" class="modal-body">
+                <iframe id="videoIframe" width="100%" height="95%" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
