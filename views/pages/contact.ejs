@@ -55,15 +55,15 @@
         font-size: 13px !important
       }
 
-      .main-text{
-        font-size: 2rem!important;
-        letter-spacing: 2px!important;
+      .main-text {
+        font-size: 2rem !important;
+        letter-spacing: 2px !important;
       }
 
-      .sub-text{
-        font-size: small!important;
-        margin-top: 20px!important;
-        margin-bottom: 20px!important;
+      .sub-text {
+        font-size: small !important;
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
       }
 
       .contain {
@@ -90,12 +90,12 @@
                   <div class="col-12">
                     <div style="display:flex; flex-direction:column;justify-content: center;align-items: center;"
                       class="banner-content astonish animated fadeInDown">
-                      <h2 class="main-text" style="text-align:center; position: relative; z-index: 1;">CONTACT US</h2>
+                      <h2 id="headerText" class="main-text" style="text-align:center; position: relative; z-index: 1;">CONTACT US</h2>
                       <i style="color:#ffffff;font-size: larger;margin:40px!important">
                         <%= motto %>
                       </i>
-                      <a style="background: white!important;color: black; position: relative; z-index: 1;"
-                        href="/contact" class="btn">Book MICOLLI</a>
+                      <a onclick="scrollToForm()" style="background: white!important;color: black; position: relative; z-index: 1;"
+                        href="javascript:void(0)" class="btn">Book MICOLLI</a>
                     </div>
                   </div>
                 </div>
@@ -228,11 +228,11 @@
                                         <div class="col-xs-12 col-md-4 col-lg-6">
                                           <label>How Did You Hear About Us?<br>
                                             <span class="wpcf7-form-control-wrap" data-name="AboutUs">
-                                              
+
                                               <select type="text" id="referralMedium" value="Facebook"
                                                 class="wpcf7-form-control wpcf7-text">
                                                 <option value="Facebook">Facebook</option>
-                                                <option value="Twitter">Twitter</option>
+                                                <option value="Tiktok">Tiktok</option>
                                                 <option value="Instagram">Instagram</option>
                                                 <option value="Youtube">Youtube</option>
                                               </select>
@@ -307,7 +307,7 @@
 
             // Find the option with value equal to the fragment identifier and set it as selected
             const optionToSelect = selectElement.querySelector(`option[value="${fragmentIdentifier}"]`);
-            
+
             if (optionToSelect) {
               selectElement.style.color = "goldenrod"
               optionToSelect.selected = true;
@@ -317,6 +317,16 @@
         <%- include('../partials/footer'); %>
 
           <%- include('../partials/scripts'); %>
+            <script>
+              function scrollToForm() {
+                const header = document.getElementById('headerText');
+                header.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start',
+                  inline: 'start',
+                });
+              }
+            </script>
 
 
 

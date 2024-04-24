@@ -29,7 +29,7 @@ const BookingSchema = new mongoose.Schema({
     referralMedium: {
         type: String,
         required: false,
-        enum: ["Facebook", "Twitter", "Instagram", "Youtube"]
+        enum: ["Facebook", "Tiktok", "Instagram", "Youtube"]
     },
     preferredPackage:{
         type: String,

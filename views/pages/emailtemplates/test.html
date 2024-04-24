@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto
+        }
+
+        @media (min-width:576px) {
+            .container {
+                max-width: 540px
+            }
+        }
+
+        @media (min-width:768px) {
+            .container {
+                max-width: 720px
+            }
+        }
+
+        @media (min-width:992px) {
+            .container {
+                max-width: 960px
+            }
+        }
+
+        @media (min-width:1200px) {
+            .container {
+                max-width: 1140px
+            }
+        }
+
+        .flex-row {
+            display: flex;
+            flex-direction: column;
+            /* On smaller screens, switch to column layout */
+            gap: 20px;
+        }
+
+        header {
+            background-color: rgb(255, 165, 0);
+            color: #fff;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        h1 {
+            color: white;
+            margin: 0;
+            /* Remove default margin */
+        }
+
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin: 0;
+            /* Remove default margin */
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: rgb(255, 165, 0);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #45a049;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: rgb(10, 23, 76);
+            color: #fff;
+            border-radius: 0 0 8px 8px;
+        }
+
+        /* Media query for smaller screens */
+        @media screen and (max-width: 600px) {
+            .container {
+                max-width: 90vw !important;
+                /* Adjust container width for smaller screens */
+            }
+
+            .flex-row {
+                gap: 10px;
+                /* Reduce gap between elements */
+            }
+
+            main {
+                padding: 15px;
+                /* Adjust main padding */
+            }
+
+            h1 {
+                font-size: 1.5rem;
+                /* Decrease heading font size */
+            }
+
+            p {
+                font-size: 0.9rem;
+                /* Decrease paragraph font size */
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="pls&nbsp;container container">
+        <div>
+            <header>
+                <div style="margin-left:45%;width:80px;height:80px;background:url(https://th.bing.com/th/id/R.89b03ac4a277e619f490764482e65b96?rik=zGIq7bmU6dsPBg&amp;pid=ImgRaw&amp;r=0)"
+                    alt="Logo" class="CToWUd" data-bit="iit" jslog="138226; u014N:xr6bB; 53:WzAsMl0.">
+                </div>
+                
+            </header>
+
+            <div style="text-align:center!important;margin-left:30px!important">
+                <h4>
+                    New Booking
+                </h4>
+                <p style="padding: 30px;padding-top: 10px;;">
+                <p><b>Dear Micheal,<br><br>
+
+                        This is to inform you that you have received a new booking
+                        through the Contact Us widget on your website. Below are the details
+                        of the message:<br><br>
+
+                    </b></p>
+
+
+                <strong><b>Client Name:</b></strong>
+                <%= name %><br><br>
+
+                    <strong><b>Client Email:</b></strong>
+                    <%= email %><br><br>
+
+                        <strong><b>Client Phone:</b></strong>
+                        <%= phone %><br><br>
+
+                            <strong><b>Package:</b></strong>
+                            <%= package %><br><br>
+
+                                <strong><b>Event Date:</b></strong>
+                                <%= eventDate %><br><br>
+
+                                    <strong><b>Message:</b></strong>
+                                    <%= message %>.<br><br>
+
+                                        <strong><b>Client Country:</b></strong>
+                                        <%= country %><br><br>
+
+                                            Please review this message at your earliest convenience and take
+                                            appropriate action if necessary.<br><br>
+
+                                            Thank you for your attention to this matter.<br><br>
+
+                                            Best regards,
+                                            </p>
+            </div>
+        </div>
+        <footer>© 2021-2024 Talkstuff. All rights reserved.</footer>
+    </div>
+</body>
+
+</html>

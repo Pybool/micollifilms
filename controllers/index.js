@@ -1,5 +1,8 @@
 const Booking = require("../models/bookings.model");
 const validateBookingForm = require("./helper").validateBookingForm;
+const sendMail = require("../services/mailservice");
+const ejs = require("ejs");
+const juice = require("juice");
 
 const bookEvent = async (req, res) => {
   try {
@@ -21,6 +24,45 @@ const bookEvent = async (req, res) => {
         data: booking,
         message: "Booking was succesfull",
       };
+      const email = bookingPayload?.email;
+      const name = bookingPayload?.name;
+      const phone = bookingPayload?.phone;
+      const message = bookingPayload?.moreInfo;
+      const country = bookingPayload?.eventCountry;
+      const package = bookingPayload?.preferredPackage;
+      const serverUrl = "https://micollifilms.com"
+      const date = new Date(bookingPayload?.eventDate);
+
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      const formattedDate = date.toLocaleDateString('en-US', options);
+      const eventDate = formattedDate;
+      const template = await ejs.renderFile(
+        "views/pages/emailtemplates/booking.ejs",
+        {
+          email,
+          name,
+          message,
+          country,
+          package,
+          eventDate,
+          phone,
+          serverUrl
+        }
+      );
+      const mailOptions = {
+        from: `info@micollifilms.com`,
+        to: "info@micollifilms.com",
+        subject: "New Booking",
+        text: `New Booking alert!`,
+        html: juice(template),
+      };
+      sendMail(mailOptions)
+        .then((response) => {
+          console.log("Email sent successfully:", response);
+        })
+        .catch((error) => {
+          console.error("Failed to send email:", error);
+        });
     } else {
       response = {
         status: false,

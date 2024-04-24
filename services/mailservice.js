@@ -2,9 +2,20 @@ const nodemailer = require('nodemailer');
 const dotenv = require("dotenv");
 
 dotenv.config();
-console.log("\n\n\n\n\n===============> ",process.env.EMAIL_HOST)
 let transporter;
 try {
+  console.log({
+    service: process.env.EMAIL_HOST,
+    host: process.env.EMAIL_HOST,
+    port: parseInt(process.env.EMAIL_PORT || "2525"),
+    auth: {
+      user: process.env.EMAIL_HOST_USER,
+      pass: process.env.EMAIL_HOST_PASSWORD,
+    },
+    tls: {
+      rejectUnauthorized: false
+    }
+  })
   transporter = nodemailer.createTransport({
     service: process.env.EMAIL_HOST,
     host: process.env.EMAIL_HOST,
@@ -33,10 +44,7 @@ const sendMail = async(mailOptions) => {
           resolve(info);
         }
       });
-    }).catch((error)=>{
-      console.log(error)
-      throw error;
-    });
+    })
   };
 
 module.exports = sendMail;
