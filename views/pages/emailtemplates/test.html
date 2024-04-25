@@ -54,7 +54,7 @@
         header {
             background-color: rgb(255, 165, 0);
             color: #fff;
-            text-align: center;
+            text-align: left;
             border-radius: 8px 8px 0 0;
         }
 
@@ -124,6 +124,25 @@
                 /* Decrease paragraph font size */
             }
         }
+
+        .booking-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .label {
+            width: 150px;
+            font-weight: bold;
+        }
+
+        .value {
+            flex-grow: 1;
+        }
     </style>
 
 </head>
@@ -132,57 +151,71 @@
     <div class="pls&nbsp;container container">
         <div>
             <header>
-                <div style="margin-left:45%;width:80px;height:80px;background:url(https://th.bing.com/th/id/R.89b03ac4a277e619f490764482e65b96?rik=zGIq7bmU6dsPBg&amp;pid=ImgRaw&amp;r=0)"
-                    alt="Logo" class="CToWUd" data-bit="iit" jslog="138226; u014N:xr6bB; 53:WzAsMl0.">
-                </div>
-                
+                <img loading="lazy" src="<%=logo%>" srcSet="<%=logo%>"
+                    style="width: 80px; height: 80px; object-fit: contain;border-radius:50%" class="img" alt="Logo" />
             </header>
 
-            <div style="text-align:center!important;margin-left:30px!important">
-                <h4>
+            <div style="text-align:left!important;margin-left:30px!important">
+                <h2>
                     New Booking
-                </h4>
-                <p style="padding: 30px;padding-top: 10px;;">
-                <p><b>Dear Micheal,<br><br>
+                </h2>
+                <h4 style="padding: 30px;padding-top: 10px;">Dear Micheal,<h4><br>
+                        <div>
+                            <p>This is to inform you that you have received a new booking through the Contact Us widget
+                                on your website. Below are the details of the message:</p>
+                            <div class="booking-details">
+                                <div class="detail">
+                                    <span class="label">Client Name:</span>
+                                    <span class="value">
+                                        <%= name %>
+                                    </span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Client Email:</span>
+                                    <span class="value">
+                                        <%= email %>
+                                    </span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Client Phone:</span>
+                                    <span class="value">
+                                        <%= phone %>
+                                    </span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Package:</span>
+                                    <span class="value">
+                                        <%= package %>
+                                    </span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Event Date:</span>
+                                    <span class="value">
+                                        <%= eventDate %>
+                                    </span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Message:</span>
+                                    <span class="value">
+                                        <%= message %>
+                                    </span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Client Country:</span>
+                                    <span class="value">
+                                        <%= country %>
+                                    </span>
+                                </div>
+                            </div>
 
-                        This is to inform you that you have received a new booking
-                        through the Contact Us widget on your website. Below are the details
-                        of the message:<br><br>
+                            <p>Please review this message at your earliest convenience and take appropriate action if
+                                necessary. Thank you for your attention to this matter.</p>
+                            <p>Best regards,</p>
+                        </div>
 
-                    </b></p>
-
-
-                <strong><b>Client Name:</b></strong>
-                <%= name %><br><br>
-
-                    <strong><b>Client Email:</b></strong>
-                    <%= email %><br><br>
-
-                        <strong><b>Client Phone:</b></strong>
-                        <%= phone %><br><br>
-
-                            <strong><b>Package:</b></strong>
-                            <%= package %><br><br>
-
-                                <strong><b>Event Date:</b></strong>
-                                <%= eventDate %><br><br>
-
-                                    <strong><b>Message:</b></strong>
-                                    <%= message %>.<br><br>
-
-                                        <strong><b>Client Country:</b></strong>
-                                        <%= country %><br><br>
-
-                                            Please review this message at your earliest convenience and take
-                                            appropriate action if necessary.<br><br>
-
-                                            Thank you for your attention to this matter.<br><br>
-
-                                            Best regards,
-                                            </p>
             </div>
         </div>
-        <footer>© 2021-2024 Talkstuff. All rights reserved.</footer>
+        <footer>© 2021-2024 Micollifilms. All rights reserved.</footer>
     </div>
 </body>
 

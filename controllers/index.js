@@ -3,6 +3,14 @@ const validateBookingForm = require("./helper").validateBookingForm;
 const sendMail = require("../services/mailservice");
 const ejs = require("ejs");
 const juice = require("juice");
+const logo = require("./logo");
+
+function toTitleCase(str) {
+  return str.replace(/\w\S*/g, function(txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  });
+}
+
 
 const bookEvent = async (req, res) => {
   try {
@@ -29,7 +37,7 @@ const bookEvent = async (req, res) => {
       const phone = bookingPayload?.phone;
       const message = bookingPayload?.moreInfo;
       const country = bookingPayload?.eventCountry;
-      const package = bookingPayload?.preferredPackage;
+      const package = toTitleCase(bookingPayload?.preferredPackage) + " Package";
       const serverUrl = "https://micollifilms.com"
       const date = new Date(bookingPayload?.eventDate);
 
@@ -46,9 +54,11 @@ const bookEvent = async (req, res) => {
           package,
           eventDate,
           phone,
-          serverUrl
+          serverUrl,
+          logo
         }
       );
+
       const mailOptions = {
         from: `info@micollifilms.com`,
         to: "info@micollifilms.com",

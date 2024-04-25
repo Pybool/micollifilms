@@ -2,182 +2,219 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    body {
-      font-family: "Arial", sans-serif;
-      background-color: #f5f5f5;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
 
-    .container {
-      width: 100%;
-      padding-right: 15px;
-      padding-left: 15px;
-      margin-right: auto;
-      margin-left: auto
-    }
+        .container {
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto
+        }
 
-    @media (min-width:576px) {
-      .container {
-        max-width: 540px
-      }
-    }
+        @media (min-width:576px) {
+            .container {
+                max-width: 540px
+            }
+        }
 
-    @media (min-width:768px) {
-      .container {
-        max-width: 720px
-      }
-    }
+        @media (min-width:768px) {
+            .container {
+                max-width: 720px
+            }
+        }
 
-    @media (min-width:992px) {
-      .container {
-        max-width: 960px
-      }
-    }
+        @media (min-width:992px) {
+            .container {
+                max-width: 960px
+            }
+        }
 
-    @media (min-width:1200px) {
-      .container {
-        max-width: 1140px
-      }
-    }
+        @media (min-width:1200px) {
+            .container {
+                max-width: 1140px
+            }
+        }
 
-    .flex-row {
-      display: flex;
-      flex-direction: column;
-      /* On smaller screens, switch to column layout */
-      gap: 20px;
-    }
+        .flex-row {
+            display: flex;
+            flex-direction: column;
+            /* On smaller screens, switch to column layout */
+            gap: 20px;
+        }
 
-    header {
-      background-color: rgb(255, 165, 0);
-      color: #fff;
-      text-align: center;
-      border-radius: 8px 8px 0 0;
-    }
+        header {
+            background-color: rgb(255, 165, 0);
+            color: #fff;
+            text-align: left;
+            border-radius: 8px 8px 0 0;
+        }
 
-    main {
-      padding: 20px;
-    }
+        main {
+            padding: 20px;
+        }
 
-    h1 {
-      color: white;
-      margin: 0;
-      /* Remove default margin */
-    }
+        h1 {
+            color: white;
+            margin: 0;
+            /* Remove default margin */
+        }
 
-    p {
-      color: #666;
-      line-height: 1.6;
-      margin: 0;
-      /* Remove default margin */
-    }
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin: 0;
+            /* Remove default margin */
+        }
 
-    .cta-button {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: rgb(255, 165, 0);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-    }
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: rgb(255, 165, 0);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
 
-    .cta-button:hover {
-      background-color: #45a049;
-    }
+        .cta-button:hover {
+            background-color: #45a049;
+        }
 
-    footer {
-      text-align: center;
-      padding: 30px;
-      background-color: rgb(10, 23, 76);
-      color: #fff;
-      border-radius: 0 0 8px 8px;
-    }
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: rgb(10, 23, 76);
+            color: #fff;
+            border-radius: 0 0 8px 8px;
+        }
 
-    /* Media query for smaller screens */
-    @media screen and (max-width: 600px) {
-      .container {
-        max-width: 90vw !important;
-        /* Adjust container width for smaller screens */
-      }
+        /* Media query for smaller screens */
+        @media screen and (max-width: 600px) {
+            .container {
+                max-width: 90vw !important;
+                /* Adjust container width for smaller screens */
+            }
 
-      .flex-row {
-        gap: 10px;
-        /* Reduce gap between elements */
-      }
+            .flex-row {
+                gap: 10px;
+                /* Reduce gap between elements */
+            }
 
-      main {
-        padding: 15px;
-        /* Adjust main padding */
-      }
+            main {
+                padding: 15px;
+                /* Adjust main padding */
+            }
 
-      h1 {
-        font-size: 1.5rem;
-        /* Decrease heading font size */
-      }
+            h1 {
+                font-size: 1.5rem;
+                /* Decrease heading font size */
+            }
 
-      p {
-        font-size: 0.9rem;
-        /* Decrease paragraph font size */
-      }
-    }
-  </style>
+            p {
+                font-size: 0.9rem;
+                /* Decrease paragraph font size */
+            }
+        }
+
+        .booking-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .label {
+            width: 150px;
+            font-weight: bold;
+        }
+
+        .value {
+            flex-grow: 1;
+        }
+    </style>
 
 </head>
 
 <body>
-  <div class="pls&nbsp;container container">
-    <div>
-      <header>
-        <img loading="lazy" src="<%=serverUrl%>/assets/img/micolli/logo.png"
-          srcSet="<%=serverUrl%>/assets/img/micolli/logo.png"
-          style="width: 80px; height: 80px; object-fit: contain;border-radius:50%" class="img" alt="Logo" />
-      </header>
+    <div class="pls&nbsp;container container">
+        <div>
+            <header>
+                <img loading="lazy" src="<%=logo%>" srcSet="<%=logo%>"
+                    style="width: 80px; height: 80px; object-fit: contain;border-radius:50%" class="img" alt="Logo" />
+            </header>
 
-      <div style="text-align:center!important;margin-left:30px!important">
-        <h2>
-          New Booking
-        </h2>
-        <h4  style="padding: 30px;padding-top: 10px;">Dear Micheal,<h4><br>
-        <p >
-        <p>
+            <div style="text-align:left!important;margin-left:30px!important">
+                <h2>New Booking</h2>
+                <h4 style="padding-top: 10px;">Dear Micollifilms,<h4><br>
+                        <div>
+                            <p>This is to inform you that you have received a new booking through the Contact Us widget
+                                on your website. Below are the details of the message:</p>
+                            <div style="padding-top: 20px;" class="booking-details">
+                                <div class="detail">
+                                    <span class="label">Client Name:</span>
+                                    <span class="value">
+                                        <%= name %>
+                                    </span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Client Email:</span>
+                                    <span class="value">
+                                        <%= email %>
+                                    </span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Client Phone:</span>
+                                    <span class="value">
+                                        <%= phone %>
+                                    </span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Package:</span>
+                                    <span class="value">
+                                        <%= package %>
+                                    </span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Event Date:</span>
+                                    <span class="value">
+                                        <%= eventDate %>
+                                    </span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Message:</span>
+                                    <span class="value">
+                                        <%= message %>
+                                    </span>
+                                </div>
+                                <div class="detail">
+                                    <span class="label">Client Country:</span>
+                                    <span class="value">
+                                        <%= country %>
+                                    </span>
+                                </div>
+                            </div>
 
-          This is to inform you that you have received a new booking
-          through the Contact Us widget on your website. Below are the details
-          of the message:<br><br>
+                            <p>Please review this message at your earliest convenience and take appropriate action if
+                                necessary. Thank you for your attention to this matter.</p>
+                            <p>Best regards,</p>
+                        </div>
 
-        </b>
-      </p>
-
-
-        <strong><b>Client Name:</b></strong> <%= name %><br><br>
-            
-            <strong><b>Client Email:</b></strong> <%= email %><br><br>
-
-            <strong><b>Client Phone:</b></strong> <%= phone %><br><br>
-            
-            <strong><b>Package:</b></strong> <%= package %><br><br>
-
-            <strong><b>Event Date:</b></strong> <%= eventDate %><br><br>
-            
-            <strong><b>Message:</b></strong> <%= message %>.<br><br>
-
-            <strong><b>Client Country:</b></strong> <%= country %><br><br>
-
-            Please review this message at your earliest convenience and take
-            appropriate action if necessary.<br><br>
-
-            Thank you for your attention to this matter.<br><br>
-
-            Best regards,
-        </p>
-      </div>
+            </div>
+        </div>
+        <footer>© 2021-2024 Micollifilms. All rights reserved.</footer>
     </div>
-    <footer>© 2021-2024 Talkstuff. All rights reserved.</footer>
-  </div>
 </body>
 
 </html>
