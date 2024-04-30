@@ -3,7 +3,7 @@ const home = {
     "bannerMainFloatText": "MICOLLI FILMS & VIDEOGRAPHY",
     "bannerSubFloatText": "UK & INTERNATIONAL ",
     "aboutUsPreText": "LUXURY, ESSEX FILM VIDEOGRAPHY COMPANY",
-    "aboutUsText": "Having work from a diverse career in TV, covering sports and commercials. Transitioning to wedding cinematographer was initially a hobby but soon became a passion. With a strong admiration for cinema, my inspiration came from a notable cinematographer, striving to produce the best possible movies we have seen. My goal is to capture and convey authentic love stories through a documentary-style approach with narrative elements, ensuring each film is of high quality and tailored to each couple’s unique personality.",
+    "aboutUsText": "Having worked in diverse careers in TV, ranging from covering sports and commercials to transitioning to wedding cinematographer which was initially a hobby that soon became a passion. I have a strong admiration for cinema, my inspiration came from notable cinematographers, striving to produce the best possible videos we have seen. My goal is to capture and convey authentic love stories through a documentary-style approach with narrative elements, ensuring each film is of high quality and tailored to each couple’s unique personality.",
     "carouselSliderVideoUrls": [],
     "latestFromPortFolioVideos": [
         {

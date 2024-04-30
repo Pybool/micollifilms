@@ -109,13 +109,18 @@
                         <div class="wedd-overlay">
                            <!-- <h2>Wedding Packages</h2> -->
                            <div style="margin-top:40px;">
+                              <h6 style="margin-bottom: 20px!important;">We have designed our package(s) to suit our clients. </h6>
                               <% context.forEach(function(package, index) { %>
                                  <div>
                                     <h2 class="">
                                        <%= package?.name %>
                                     </h2>
 
-                                    <div style="justify-content: center;" class="flex-rows">
+                                    <p>
+                                       <%= package?.description %>
+                                    </p>
+
+                                    <div style="justify-content: left;" class="flex-rows">
                                        <div class="wp-block-image">
                                           <figure class="aligncenter size-large"><img loading="lazy" decoding="async" width="570"
                                                 height="400" src="<%= package?.imageSrc %>" alt=""
