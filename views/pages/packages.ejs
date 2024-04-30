@@ -48,7 +48,8 @@
       }
 
       .x-center {
-         justify-content: center !important;
+         justify-content: space-between !important;
+         flex-wrap: nowrap!important;
       }
 
       @media (min-width: 768px) {
@@ -59,10 +60,7 @@
          .animated {
             visibility: visible;
          }
-
-         .x-center {
-            justify-content: left !important;
-         }
+         
       }
 
       @media only screen and (max-width:767px) {
@@ -84,6 +82,11 @@
             font-size: 2.7rem !important;
             letter-spacing: 4px;
 
+         }
+
+         .x-center {
+            justify-content: left !important;
+            flex-wrap: wrap!important;
          }
       }
    </style>
@@ -135,14 +138,14 @@
                                        <%= package?.description %>
                                     </p>
 
-                                    <div class="x-center flex-rows">
-                                       <div class="wp-block-image">
+                                    <div class="x-center flex-rows col-md-12">
+                                       <div class="wp-block-image col-md-6">
                                           <figure class="aligncenter size-large"><img loading="lazy" decoding="async"
                                                 width="570" height="400" src="<%= package?.imageSrc %>" alt=""
                                                 class="wp-image-2409">
                                           </figure>
                                        </div>
-                                       <ul>
+                                       <ul class="col-md-6">
                                           <li>
                                              <h5 style="margin-bottom: 20px!important;">What's Included:</h5>
                                           </li>
