@@ -25,6 +25,11 @@
          background-color: rgba(0, 0, 0, 0.6);
          z-index: 0;
       }
+
+      .fa-check{
+         color: goldenrod!important;
+         margin-right: 30px!important;
+      }
    </style>
    <style>
       .flex-rows {
@@ -128,6 +133,7 @@
                                           </figure>
                                        </div>
                                        <ul>
+                                          <li><h5 style="margin-bottom: 20px!important;">What's Included:</h5></li>
                                           <% package.features.forEach(function(feature, index) { %>
                                              <li><i class="fal fa-check"></i> <span>
                                                    <%= feature %>
