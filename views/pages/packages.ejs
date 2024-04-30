@@ -26,9 +26,9 @@
          z-index: 0;
       }
 
-      .fa-check{
-         color: goldenrod!important;
-         margin-right: 30px!important;
+      .fa-check {
+         color: goldenrod !important;
+         margin-right: 30px !important;
       }
    </style>
    <style>
@@ -47,9 +47,17 @@
          visibility: visible;
       }
 
+      .x-center {
+         justify-content: center !important;
+      }
+
       @media (min-width: 768px) {
          .astonish {
             visibility: hidden;
+         }
+
+         .x-center {
+            justify-content: left !important;
          }
 
          .animated {
@@ -71,7 +79,8 @@
             font-size: 1rem !important
          }
 
-         .banner-content > h2, h3 {
+         .banner-content>h2,
+         h3 {
             font-size: 2.7rem !important;
             letter-spacing: 4px;
 
@@ -114,7 +123,8 @@
                         <div class="wedd-overlay">
                            <!-- <h2>Wedding Packages</h2> -->
                            <div style="margin-top:40px;">
-                              <h6 style="margin-bottom: 20px!important;">We have designed our package(s) to suit our clients. </h6>
+                              <h6 style="margin-bottom: 20px!important;">We have designed our package(s) to suit our
+                                 clients. </h6>
                               <% context.forEach(function(package, index) { %>
                                  <div>
                                     <h2 class="">
@@ -125,15 +135,17 @@
                                        <%= package?.description %>
                                     </p>
 
-                                    <div style="justify-content: left;" class="flex-rows">
+                                    <div class="x-center flex-rows">
                                        <div class="wp-block-image">
-                                          <figure class="aligncenter size-large"><img loading="lazy" decoding="async" width="570"
-                                                height="400" src="<%= package?.imageSrc %>" alt=""
+                                          <figure class="aligncenter size-large"><img loading="lazy" decoding="async"
+                                                width="570" height="400" src="<%= package?.imageSrc %>" alt=""
                                                 class="wp-image-2409">
                                           </figure>
                                        </div>
                                        <ul>
-                                          <li><h5 style="margin-bottom: 20px!important;">What's Included:</h5></li>
+                                          <li>
+                                             <h5 style="margin-bottom: 20px!important;">What's Included:</h5>
+                                          </li>
                                           <% package.features.forEach(function(feature, index) { %>
                                              <li><i class="fal fa-check"></i> <span>
                                                    <%= feature %>
@@ -159,7 +171,7 @@
                   </div>
                </main>
                <%- include('../partials/footer'); %>
-               <%- include('../partials/scripts'); %>
+                  <%- include('../partials/scripts'); %>
    </body>
 
 </html>
