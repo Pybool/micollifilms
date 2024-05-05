@@ -3,14 +3,13 @@ const validateBookingForm = require("./helper").validateBookingForm;
 const sendMail = require("../services/mailservice");
 const ejs = require("ejs");
 const juice = require("juice");
-const logo = require("./logo");
+const ionoslogo = require('./logo');
 
 function toTitleCase(str) {
-  return str.replace(/\w\S*/g, function(txt) {
-      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  return str.replace(/\w\S*/g, function (txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
   });
 }
-
 
 const bookEvent = async (req, res) => {
   try {
@@ -37,12 +36,13 @@ const bookEvent = async (req, res) => {
       const phone = bookingPayload?.phone;
       const message = bookingPayload?.moreInfo;
       const country = bookingPayload?.eventCountry;
-      const package = toTitleCase(bookingPayload?.preferredPackage) + " Package";
-      const serverUrl = "https://micollifilms.com"
+      const package =
+        toTitleCase(bookingPayload?.preferredPackage) + " Package";
+      const serverUrl = "https://micollifilms.com";
       const date = new Date(bookingPayload?.eventDate);
 
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      const formattedDate = date.toLocaleDateString('en-US', options);
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      const formattedDate = date.toLocaleDateString("en-US", options);
       const eventDate = formattedDate;
       const template = await ejs.renderFile(
         "views/pages/emailtemplates/booking.ejs",
@@ -55,17 +55,42 @@ const bookEvent = async (req, res) => {
           eventDate,
           phone,
           serverUrl,
+          ionoslogo,
+        }
+      );
+
+      const logo = 'https://micollifilms.com/assets/img/micolli/MFnobackground.png';
+
+      const responseTemplate = await ejs.renderFile(
+        "views/pages/emailtemplates/bookingResponse.ejs",
+        {
+          email,
+          name,
+          package,
+          serverUrl,
           logo
         }
       );
 
       const mailOptions = {
         from: `info@micollifilms.com`,
-        to: "info@micollifilms.com",
-        subject: "New Booking",
-        text: `New Booking alert!`,
-        html: juice(template),
+        to: email,
+        subject: "Your Micolli Booking",
+        text: `We received your booking!`,
+        html: juice(responseTemplate),
       };
+      sendMail(mailOptions)
+        .then((response) => {
+          console.log("Email sent successfully:", response);
+        })
+        .catch((error) => {
+          console.error("Failed to send email:", error);
+        });
+      // Send mail to site-owner
+      mailOptions.to = mailOptions.from
+      mailOptions.html = juice(template);
+      mailOptions.subject = "New Booking alert!";
+      mailOptions.text = `New booking placed`
       sendMail(mailOptions)
         .then((response) => {
           console.log("Email sent successfully:", response);
