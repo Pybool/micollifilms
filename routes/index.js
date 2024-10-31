@@ -5,6 +5,7 @@ const path = require("path");
 const fs = require("fs");
 const indexControllers = require("../controllers/index");
 const RouteFeeder = require("../services/routefeeder");
+const auth = require("../middlewares/auth");
 
 const router = express.Router();
 
@@ -30,20 +31,36 @@ const storage = multer.diskStorage({
 // Initialize multer upload middleware
 const upload = multer({ storage: storage });
 
-router.get("/", async (req, res, next) => {
-  console.log("Fire")
+router.get("/", auth.authMiddleware, async (req, res, next) => {
   res.render("pages/index", {
     pageTitle: "Home",
     motto: "~ Capturing Imaginations",
-    context: await RouteFeeder.getHomepageContext(),
+    context: await RouteFeeder.getHomepageContext(req),
+    user: req.user, // Pass req.user to the template
   });
 });
 
-router.get("/testimonials", async (req, res, next) => {
+
+router.get("/check-login", async (req, res, next) => {
+  return res.json(await auth.checkLogin(req, res, next))
+});
+
+
+
+router.get("/login", async (req, res, next) => {
+  res.render("pages/login", {
+    pageTitle: "Login",
+    motto: "Admin Login",
+    user: req.user, // Pass req.user to the template
+  });
+});
+
+router.get("/testimonials", auth.authMiddleware, async (req, res, next) => {
   res.render("pages/testimonials", {
     pageTitle: "Testimonials",
     motto: "",
-    context: await RouteFeeder.getHomepageContext(),
+    user: req.user, // Pass req.user to the template
+    context: { testimonials: await RouteFeeder.getTestimonialsContext(req) },
   });
 });
 
@@ -52,40 +69,48 @@ router.get("/fetchbannerImages", async (req, res, next) => {
   res.send({ bannerImages: homeContext.bannerImages });
 });
 
-router.get("/about-us", async (req, res, next) => {
+router.get("/about-us", auth.authMiddleware, async (req, res, next) => {
   res.render("pages/about", {
     pageTitle: "About Us",
     motto: "",
+    user: req.user, // Pass req.user to the template
     context: await RouteFeeder.getAboutUsPageContext(),
   });
 });
 
-router.get("/wedding-films-collection", async (req, res, next) => {
-  res.render("pages/portfolio", {
-    pageTitle: "Wedding Films",
-    motto: "",
-    context: await RouteFeeder.getPortFolioPageContext(),
-  });
-});
+router.get(
+  "/wedding-films-collection",
+  auth.authMiddleware,
+  async (req, res, next) => {
+    res.render("pages/portfolio", {
+      pageTitle: "Wedding Films",
+      motto: "",
+      user: req.user, // Pass req.user to the template
+      wfcContext: {
+        portfolioItems: await RouteFeeder.getPortFolioPageContext(),
+      },
+    });
+  }
+);
 
-router.get("/packages", async (req, res, next) => {
+router.get("/packages", auth.authMiddleware, async (req, res, next) => {
   res.render("pages/packages", {
     pageTitle: "packages",
     motto: "",
-    context: await RouteFeeder.getPackagesPageContext(),
+    user: req.user, // Pass req.user to the template
+    context: await RouteFeeder.getPackagesPageContext(req),
   });
 });
 
 router.get("/wedding-film", async (req, res, next) => {
   const filter = req.query.q;
-  console.log("filter =================> ", filter);
 
   const portFolioContext = await RouteFeeder.getPortFolioPageContext();
   res.render("pages/portfolioItem", {
     pageTitle: "portfolio",
     motto: "",
     context: data.filterById(
-      JSON.parse(JSON.stringify(portFolioContext)).portfolioItems,
+      portFolioContext,
       filter
     ),
   });
@@ -105,10 +130,18 @@ router.post("/api/v1/book-event", indexControllers.bookEvent);
 
 // router.get("/api/v1/fetch-application", indexControllers.getApplication);
 
-// router.post(
-//   "/api/v1/subscribe-newsletter",
-//   indexControllers.subscribeNewsLetter
-// );
+router.post("/api/login", async (req, res) => {
+  await auth.login(req, res);
+});
+
+
+router.get("/api/logout", async (req, res) => {
+  return res.json({data: await auth.logout(req, res)});
+});
+
+router.post("/api/register", async (req, res) => {
+  await auth.register(req, res);
+});
 
 // router.post(
 //   "/api/v1/append-signature",

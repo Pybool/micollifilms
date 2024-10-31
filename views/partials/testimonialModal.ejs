@@ -1,0 +1,287 @@
+<!-- Trigger Button -->
+<style>
+    .img-x {
+        width: 60px !important;
+        height: 60px !important;
+        cursor: pointer;
+    }
+
+    .w-100 {
+        width: 100% !important;
+    }
+
+    input.form-control {
+        width: 100% !important;
+    }
+
+    .modal-content-listing {
+        max-width: 80vw !important
+    }
+</style>
+<div class="modal fade" id="testimonialsModal" tabindex="-1" aria-labelledby="testimonialsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-content-listing">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <h5 class="modal-title" id="testimonialsModalLabel">
+                    Testimonials
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="testimonialsContainer" class="container">
+                    <!-- Dynamic testimonial rows will be inserted here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="saveTestimonialsBtn">Save All Testimonials</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="testimonialModal" tabindex="-1" role="dialog" aria-labelledby="testimonialModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="testimonialModalLabel">
+                    Add Testimonial
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="testimonialForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="image">Select Image</label>
+                        <input type="file" class="form-control-file" id="image" name="image" accept="image/*" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="imageName">Couple Name</label>
+                        <input type="text" class="form-control" id="imageName" name="imageName"
+                            placeholder="Enter image name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="testimonialText">Testimonial</label>
+                        <textarea class="form-control" id="testimonialText" name="testimonialText" rows="3"
+                            placeholder="Enter testimonial" required></textarea>
+                    </div>
+
+
+                    <button type="button" class="btn btn-primary" onclick="submitTestimonial()">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script>
+    const testimonials = getContext().testimonials
+    async function submitTestimonial() {
+        const form = document.getElementById('testimonialForm');
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch('/api/add-testimonials', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                alert('Testimonial added successfully!');
+                location.reload();  // Optionally reload the page to reflect the new testimonial
+            } else {
+                alert('Failed to add testimonial.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while submitting the testimonial.');
+        }
+    }
+
+    // Display testimonials
+    function displayTestimonials(testimonials) {
+        const container = document.getElementById('testimonialsContainer');
+        container.innerHTML = ''; // Clear container
+
+        testimonials.forEach(testimonial => {
+            // Create a row for each testimonial
+            const row = document.createElement('div');
+            row.classList.add('row', 'mb-3', 'align-items-center');
+            row.setAttribute('data-id', testimonial._id); // Associate row with testimonial _id
+
+            // Image column
+            const imgCol = document.createElement('div');
+            imgCol.classList.add('col-md-1');
+            const img = document.createElement('img');
+            img.src = testimonial.imageSrc;
+            img.alt = testimonial.imageName;
+            img.classList.add('rounded-circle', 'img-fluid', 'img-x');
+            img.style.width = '60px'; // Adjust as necessary
+
+            // Create a hidden file input to upload new image
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.style.display = 'none';
+            fileInput.addEventListener('change', (e) => handleImageUpload(e, testimonial._id)); // Handle image upload
+
+            // Add event listener to the image for image replacement
+            img.addEventListener('click', () => fileInput.click());
+
+            imgCol.appendChild(img);
+            imgCol.appendChild(fileInput);
+
+            // Name column
+            const nameCol = document.createElement('div');
+            nameCol.classList.add('col-md-2');
+            const nameInput = document.createElement('input');
+            nameInput.type = 'text';
+            nameInput.value = testimonial.imageName;
+            nameInput.style.width = '120px';
+            nameInput.classList.add('form-control', 'w-100');
+            nameInput.addEventListener('input', () => testimonial.imageName = nameInput.value); // Update testimonial object
+
+            nameCol.appendChild(nameInput);
+
+            // Content column
+            const contentCol = document.createElement('div');
+            contentCol.classList.add('col-md-7');
+            const contentTextarea = document.createElement('textarea');
+            contentTextarea.classList.add('form-control');
+            contentTextarea.rows = '3';
+            contentTextarea.value = testimonial.testimonial;
+            contentTextarea.addEventListener('input', () => testimonial.testimonial = contentTextarea.value); // Update testimonial object
+
+            contentCol.appendChild(contentTextarea);
+
+            // Archive/Unarchive column
+            const archiveCol = document.createElement('div');
+            archiveCol.classList.add('col-md-2', 'text-right');
+
+            const archiveLink = document.createElement('a');
+            archiveLink.href = 'javascript:void(0)';
+            archiveLink.style.marginRight = '10px';
+
+            const archiveIcon = document.createElement('i');
+            archiveIcon.classList.add('fas');
+
+            if (!testimonial?.isArchive) {
+                archiveLink.style.color = 'black';
+                archiveLink.innerText = 'Archive';
+                archiveIcon.classList.add('fa-trash-alt');
+                archiveLink.onclick = () => toggleArchiveTestimonial(testimonial._id);
+            } else {
+                archiveLink.style.color = 'orange';
+                archiveLink.innerText = 'Unarchive';
+                archiveIcon.classList.add('fa-undo');
+                archiveLink.onclick = () => toggleArchiveTestimonial(testimonial._id);
+            }
+
+            archiveLink.prepend(archiveIcon); // Insert icon before text
+            archiveCol.appendChild(archiveLink);
+
+            // Append columns to row
+            row.appendChild(imgCol);
+            row.appendChild(nameCol);
+            row.appendChild(contentCol);
+            row.appendChild(archiveCol);
+
+            // Append row to container
+            container.appendChild(row);
+        });
+    }
+
+    // Handle image upload
+    function handleImageUpload(event, testimonialId) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append('image', file);
+        formData.append('_id', testimonialId);
+
+        // Upload new image to the server
+        fetch('/api/upload-testimonial-image', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update the image source with the new image URL
+                    const testimonialRow = document.querySelector(`[data-id="${testimonialId}"]`);
+                    const img = testimonialRow.querySelector('img');
+                    img.src = data.newImageUrl;
+                }
+            })
+            .catch(error => console.error('Error uploading image:', error));
+    }
+
+    // Save all testimonials at once
+    document.getElementById('saveTestimonialsBtn').addEventListener('click', () => {
+        fetch('/api/save-testimonials', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(testimonials), // Send the updated testimonials to the backend
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Testimonials saved successfully!');
+                } else {
+                    alert('Failed to save testimonials.');
+                }
+            })
+            .catch(error => console.error('Error saving testimonials:', error));
+    });
+
+    setTimeout(() => {
+        displayTestimonials(testimonials)
+    }, 2000)
+</script>
+
+<script>
+    async function toggleArchiveTestimonial(id) {
+        try {
+            const response = await fetch('/api/toggle-archive-testimonial', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ _id: id }),
+            });
+
+            if (response.ok) {
+                // Redirect to home page if login is successful
+                alert("Update successful")
+                // window.location.reload()
+            } else {
+                // Handle error
+                const errorData = await response.json();
+                alert('Login failed: ' + (errorData.message || 'Unknown error'));
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Something went wrong. Please try again.');
+        }
+    }
+</script>

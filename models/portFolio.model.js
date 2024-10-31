@@ -34,17 +34,17 @@ const PortfolioItemSchema = new Schema({
     type: Boolean,
     required: true,
     default: false
-  }
-});
-
-const PortfolioSchema = new Schema({
-  shortNote: {
-    type: String,
-    required: false
   },
-  portfolioItems: [PortfolioItemSchema]
+  isLatest: {
+    type: Boolean,
+    default: false
+  },
+  isArchive: {
+    type: Boolean,
+    default: false
+  },
 });
 
-const PortfolioModel = mongoose.model('Portfolio', PortfolioSchema);
+const PortfolioModel = mongoose.model('Portfolio', PortfolioItemSchema);
 
 module.exports = PortfolioModel;

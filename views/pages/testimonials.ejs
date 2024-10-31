@@ -2,6 +2,18 @@
 <html class="no-js" lang="zxx">
 <%- include('../partials/head'); %>
     <style>
+        .edgtf-st-title{
+            font-size: xxx-large;
+        }
+        
+        .no-display {
+            display: none;
+        }
+
+        .form-control {
+            background: transparent !important;
+        }
+
         .image-background {
             margin-top: -20px;
             min-height: 100vh;
@@ -11,6 +23,42 @@
             background-size: cover !important;
             transition: background-image 3s ease-in-out;
 
+        }
+
+        .wp-image {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            gap: 20px;
+            background: black;
+            padding: 10px;
+            z-index: 11;
+
+        }
+
+        .wp-image>a {
+            font-size: small !important;
+        }
+
+        .change-bg {
+            background: white !important;
+            color: black !important;
+            z-index: 1;
+        }
+
+        .flex-row-start {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .main-h2 {
+            font-size: 5.5rem !important;
+            text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
         /* For mobile devices */
@@ -31,14 +79,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.6);
             /* Dark overlay with transparency */
             z-index: 0;
             /* Put overlay behind other content */
         }
     </style>
     <style>
-        /* If you wish to remove the astonish.js file, then also be sure to remove these styles. */
         .astonish {
             visibility: visible;
         }
@@ -52,68 +99,850 @@
                 visibility: visible;
             }
         }
+
+
+        @media only screen and (max-width:600px) {
+            .main-h2 {
+                font-size: 2.5rem !important
+            }
+
+            h3 {
+                font-size: 1.5rem !important
+            }
+
+            .img-name {
+                font-size: 0.8rem !important
+            }
+
+            .active {
+                margin-top: 100px !important;
+            }
+
+            .arrow {
+                display: none !important;
+            }
+
+
+        }
     </style>
-
     <style>
-        .arrows {
-            font-size: 3vw;
-            color: white;
-            animation: scaleAnimation 2s infinite alternate ease-in-out;
+        .testim {
+            width: 90%;
+            top: 50%;
+            -webkit-transform: translatey(-50%);
+            -moz-transform: translatey(-50%);
+            -ms-transform: translatey(-50%);
+            -o-transform: translatey(-50%);
+            transform: translatey(-50%);
         }
 
-        .arrows:hover {
-            color: violet;
+        .testim .wrap {
+            position: relative;
+            width: 100%;
+            padding: 40px 20px;
+            margin: auto;
         }
 
-        @keyframes scaleAnimation {
+        .testim .arrow {
+            display: block;
+            position: absolute;
+            color: #333;
+            cursor: pointer;
+            font-size: 2em;
+            top: 60%;
+            -webkit-transform: translateY(-50%);
+            -ms-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            -o-transform: translateY(-50%);
+            transform: translateY(-50%);
+            -webkit-transition: all .3s ease-in-out;
+            -ms-transition: all .3s ease-in-out;
+            -moz-transition: all .3s ease-in-out;
+            -o-transition: all .3s ease-in-out;
+            transition: all .3s ease-in-out;
+            padding: 5px;
+            z-index: 22222222;
+        }
+
+        .testim .arrow:before {
+            cursor: pointer;
+        }
+
+        .testim .arrow:hover {
+            color: goldenrod;
+        }
+
+
+        .testim .arrow.left {
+            left: 0px;
+        }
+
+        .testim .arrow.right {
+            right: 0px;
+        }
+
+        .testim .dots {
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            bottom: 60px;
+            left: 0;
+            display: block;
+            z-index: 3333;
+            height: 12px;
+        }
+
+        .testim .dots .dot {
+            list-style-type: none;
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid goldenrod;
+            margin: 0 10px;
+            cursor: pointer;
+            -webkit-transition: all .5s ease-in-out;
+            -ms-transition: all .5s ease-in-out;
+            -moz-transition: all .5s ease-in-out;
+            -o-transition: all .5s ease-in-out;
+            transition: all .5s ease-in-out;
+            position: relative;
+        }
+
+        .testim .dots .dot.active,
+        .testim .dots .dot:hover {
+            background: goldenrod;
+            border-color: goldenrod;
+        }
+
+        .testim .dots .dot.active {
+            -webkit-animation: testim-scale .5s ease-in-out forwards;
+            -moz-animation: testim-scale .5s ease-in-out forwards;
+            -ms-animation: testim-scale .5s ease-in-out forwards;
+            -o-animation: testim-scale .5s ease-in-out forwards;
+            animation: testim-scale .5s ease-in-out forwards;
+        }
+
+        .testim .cont {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testim .cont>div {
+            text-align: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0 0 70px 0;
+            opacity: 0;
+        }
+
+        .testim .cont>div.inactive {
+            opacity: 1;
+        }
+
+
+        .testim .cont>div.active {
+            position: relative;
+            opacity: 1;
+        }
+
+
+        .testim .cont div .img img {
+            display: block;
+            width: 100px;
+            height: 100px;
+            margin: auto;
+            border-radius: 50%;
+        }
+
+        .testim .cont div h2 {
+            color: goldenrod;
+            font-size: 1em;
+            margin: 15px 0;
+        }
+
+        .testim .cont div p {
+            font-size: 1.15em;
+            color: #333;
+            width: 98%;
+            margin: auto;
+        }
+
+        .testim .cont div.active .img img {
+            -webkit-animation: testim-show .5s ease-in-out forwards;
+            -moz-animation: testim-show .5s ease-in-out forwards;
+            -ms-animation: testim-show .5s ease-in-out forwards;
+            -o-animation: testim-show .5s ease-in-out forwards;
+            animation: testim-show .5s ease-in-out forwards;
+        }
+
+        .testim .cont div.active h2 {
+            -webkit-animation: testim-content-in .4s ease-in-out forwards;
+            -moz-animation: testim-content-in .4s ease-in-out forwards;
+            -ms-animation: testim-content-in .4s ease-in-out forwards;
+            -o-animation: testim-content-in .4s ease-in-out forwards;
+            animation: testim-content-in .4s ease-in-out forwards;
+        }
+
+        .testim .cont div.active p {
+            -webkit-animation: testim-content-in .5s ease-in-out forwards;
+            -moz-animation: testim-content-in .5s ease-in-out forwards;
+            -ms-animation: testim-content-in .5s ease-in-out forwards;
+            -o-animation: testim-content-in .5s ease-in-out forwards;
+            animation: testim-content-in .5s ease-in-out forwards;
+        }
+
+        .testim .cont div.inactive .img img {
+            -webkit-animation: testim-hide .5s ease-in-out forwards;
+            -moz-animation: testim-hide .5s ease-in-out forwards;
+            -ms-animation: testim-hide .5s ease-in-out forwards;
+            -o-animation: testim-hide .5s ease-in-out forwards;
+            animation: testim-hide .5s ease-in-out forwards;
+        }
+
+        .testim .cont div.inactive h2 {
+            -webkit-animation: testim-content-out .4s ease-in-out forwards;
+            -moz-animation: testim-content-out .4s ease-in-out forwards;
+            -ms-animation: testim-content-out .4s ease-in-out forwards;
+            -o-animation: testim-content-out .4s ease-in-out forwards;
+            animation: testim-content-out .4s ease-in-out forwards;
+        }
+
+        .testim .cont div.inactive p {
+            -webkit-animation: testim-content-out .5s ease-in-out forwards;
+            -moz-animation: testim-content-out .5s ease-in-out forwards;
+            -ms-animation: testim-content-out .5s ease-in-out forwards;
+            -o-animation: testim-content-out .5s ease-in-out forwards;
+            animation: testim-content-out .5s ease-in-out forwards;
+        }
+
+        @-webkit-keyframes testim-scale {
             0% {
-                transform: scale(1);
+                -webkit-box-shadow: 0px 0px 0px 0px #eee;
+                box-shadow: 0px 0px 0px 0px #eee;
+            }
+
+            35% {
+                -webkit-box-shadow: 0px 0px 10px 5px #eee;
+                box-shadow: 0px 0px 10px 5px #eee;
+            }
+
+            70% {
+                -webkit-box-shadow: 0px 0px 10px 5px #ea830e;
+                box-shadow: 0px 0px 10px 5px #ea830e;
             }
 
             100% {
-                transform: scale(1.4);
+                -webkit-box-shadow: 0px 0px 0px 0px #ea830e;
+                box-shadow: 0px 0px 0px 0px #ea830e;
+            }
+        }
+
+        @-moz-keyframes testim-scale {
+            0% {
+                -moz-box-shadow: 0px 0px 0px 0px #eee;
+                box-shadow: 0px 0px 0px 0px #eee;
+            }
+
+            35% {
+                -moz-box-shadow: 0px 0px 10px 5px #eee;
+                box-shadow: 0px 0px 10px 5px #eee;
+            }
+
+            70% {
+                -moz-box-shadow: 0px 0px 10px 5px #ea830e;
+                box-shadow: 0px 0px 10px 5px #ea830e;
+            }
+
+            100% {
+                -moz-box-shadow: 0px 0px 0px 0px #ea830e;
+                box-shadow: 0px 0px 0px 0px #ea830e;
+            }
+        }
+
+        @-ms-keyframes testim-scale {
+            0% {
+                -ms-box-shadow: 0px 0px 0px 0px #eee;
+                box-shadow: 0px 0px 0px 0px #eee;
+            }
+
+            35% {
+                -ms-box-shadow: 0px 0px 10px 5px #eee;
+                box-shadow: 0px 0px 10px 5px #eee;
+            }
+
+            70% {
+                -ms-box-shadow: 0px 0px 10px 5px #ea830e;
+                box-shadow: 0px 0px 10px 5px #ea830e;
+            }
+
+            100% {
+                -ms-box-shadow: 0px 0px 0px 0px #ea830e;
+                box-shadow: 0px 0px 0px 0px #ea830e;
+            }
+        }
+
+        @-o-keyframes testim-scale {
+            0% {
+                -o-box-shadow: 0px 0px 0px 0px #eee;
+                box-shadow: 0px 0px 0px 0px #eee;
+            }
+
+            35% {
+                -o-box-shadow: 0px 0px 10px 5px #eee;
+                box-shadow: 0px 0px 10px 5px #eee;
+            }
+
+            70% {
+                -o-box-shadow: 0px 0px 10px 5px #ea830e;
+                box-shadow: 0px 0px 10px 5px #ea830e;
+            }
+
+            100% {
+                -o-box-shadow: 0px 0px 0px 0px #ea830e;
+                box-shadow: 0px 0px 0px 0px #ea830e;
+            }
+        }
+
+        @keyframes testim-scale {
+            0% {
+                box-shadow: 0px 0px 0px 0px #eee;
+            }
+
+            35% {
+                box-shadow: 0px 0px 10px 5px #eee;
+            }
+
+            70% {
+                box-shadow: 0px 0px 10px 5px #ea830e;
+            }
+
+            100% {
+                box-shadow: 0px 0px 0px 0px #ea830e;
+            }
+        }
+
+        @-webkit-keyframes testim-content-in {
+            from {
+                opacity: 0;
+                -webkit-transform: translateY(100%);
+                transform: translateY(100%);
+            }
+
+            to {
+                opacity: 1;
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+        }
+
+        @-moz-keyframes testim-content-in {
+            from {
+                opacity: 0;
+                -moz-transform: translateY(100%);
+                transform: translateY(100%);
+            }
+
+            to {
+                opacity: 1;
+                -moz-transform: translateY(0);
+                transform: translateY(0);
+            }
+        }
+
+        @-ms-keyframes testim-content-in {
+            from {
+                opacity: 0;
+                -ms-transform: translateY(100%);
+                transform: translateY(100%);
+            }
+
+            to {
+                opacity: 1;
+                -ms-transform: translateY(0);
+                transform: translateY(0);
+            }
+        }
+
+        @-o-keyframes testim-content-in {
+            from {
+                opacity: 0;
+                -o-transform: translateY(100%);
+                transform: translateY(100%);
+            }
+
+            to {
+                opacity: 1;
+                -o-transform: translateY(0);
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes testim-content-in {
+            from {
+                opacity: 0;
+                transform: translateY(100%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @-webkit-keyframes testim-content-out {
+            from {
+                opacity: 1;
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                -webkit-transform: translateY(-100%);
+                transform: translateY(-100%);
+            }
+        }
+
+        @-moz-keyframes testim-content-out {
+            from {
+                opacity: 1;
+                -moz-transform: translateY(0);
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                -moz-transform: translateY(-100%);
+                transform: translateY(-100%);
+            }
+        }
+
+        @-ms-keyframes testim-content-out {
+            from {
+                opacity: 1;
+                -ms-transform: translateY(0);
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                -ms-transform: translateY(-100%);
+                transform: translateY(-100%);
+            }
+        }
+
+        @-o-keyframes testim-content-out {
+            from {
+                opacity: 1;
+                -o-transform: translateY(0);
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-100%);
+                transform: translateY(-100%);
+            }
+        }
+
+        @keyframes testim-content-out {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+        }
+
+        @-webkit-keyframes testim-show {
+            from {
+                opacity: 0;
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+
+            to {
+                opacity: 1;
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+
+        @-moz-keyframes testim-show {
+            from {
+                opacity: 0;
+                -moz-transform: scale(0);
+                transform: scale(0);
+            }
+
+            to {
+                opacity: 1;
+                -moz-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+
+        @-ms-keyframes testim-show {
+            from {
+                opacity: 0;
+                -ms-transform: scale(0);
+                transform: scale(0);
+            }
+
+            to {
+                opacity: 1;
+                -ms-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+
+        @-o-keyframes testim-show {
+            from {
+                opacity: 0;
+                -o-transform: scale(0);
+                transform: scale(0);
+            }
+
+            to {
+                opacity: 1;
+                -o-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+
+        @keyframes testim-show {
+            from {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @-webkit-keyframes testim-hide {
+            from {
+                opacity: 1;
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 0;
+                -webkit-transform: scale(0);
+                transform: scale(0);
+            }
+        }
+
+        @-moz-keyframes testim-hide {
+            from {
+                opacity: 1;
+                -moz-transform: scale(1);
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 0;
+                -moz-transform: scale(0);
+                transform: scale(0);
+            }
+        }
+
+        @-ms-keyframes testim-hide {
+            from {
+                opacity: 1;
+                -ms-transform: scale(1);
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 0;
+                -ms-transform: scale(0);
+                transform: scale(0);
+            }
+        }
+
+        @-o-keyframes testim-hide {
+            from {
+                opacity: 1;
+                -o-transform: scale(1);
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 0;
+                -o-transform: scale(0);
+                transform: scale(0);
+            }
+        }
+
+        @keyframes testim-hide {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+
+        @media all and (max-width: 300px) {
+            body {
+                font-size: 14px;
+            }
+        }
+
+        @media all and (max-width: 500px) {
+            .testim .arrow {
+                font-size: 1.5em;
+            }
+
+            .testim .cont div p {
+                line-height: 25px;
+            }
+
+            #testim-content {
+                margin-top: 100px;
+                height: fit-content
+            }
+
+            .img>h2 {
+                font-size: 0.7rem !important;
             }
         }
     </style>
-    <script>
-        function navigateTo(path) {
-            console.log("Navigating to home")
-            window.location.href = path;
+    <style>
+
+        #testim-content{
+            padding: 0px!important;
         }
-    </script>
+        .x-container{
+            background: black;
+            display:flex; 
+            align-items:center; 
+            justify-content:center;
+            padding: 40px;
+        }
+    </style>
 
-    <body style="background-color: #141414!important;">
+    <body style="background-color: black!important;">
         <%- include('../partials/preloader'); %>
-            <main>
-                <%- include('../partials/cookiesperm'); %>
-                    <section class="banner-area banner-bg image-background">
-                        <div class="overlay"></div>
-                        <div class="container">
-                            <div class="row">
-                                <a href="#" onclick="navigateTo('/')" class="arrows left">
-                                    <i class="fas fa-arrow-circle-left"></i>
-                                </a>
-                                <div class="col-12">
-                                    <div style="display:flex; flex-direction:column;justify-content: center;align-items: center;"
-                                        class="banner-content astonish animated fadeInDown">
-                                        <h2 style="text-align:center; position: relative; z-index: 1;">TESTIMONIALS</h2>
-                                        <%- include('../partials/testimonials'); %>
+            <%- include('../partials/header'); %>
+                <main>
+                    <%- include('../partials/cookiesperm'); %>
+                    <%-'<script>'%>
+                        let _context = <%- JSON.stringify(context).replace(/</g, '\\u003c').replace(/>/g, '\\u003e') %>;
+                      <%-'</script>'%>
+    
+                      <script>
+                        function ObjectId() {}
+                        setContext(_context);
+                        localStorage.setItem("context", JSON.stringify(_context));
+                      </script>
 
+                                <div>
+
+                                <div class="services-area">
+                                    <div class="">
+
+                                        <div class="edgtf-row-grid-section-wrapper ">
+
+                                            <div class="x-container">
+                                                <div style="margin-top: 28vh!important;" id="testim"
+                                                    class="testim">
+                                                    <div class="testim-cover">
+                                                        <div class="wrap">
+
+                                                            <span id="right-arrow"
+                                                                class="arrow right fas fab fa-chevron-right"></span>
+                                                            <span id="left-arrow"
+                                                                class="arrow left fas fab fa-chevron-left "></span>
+                                                            <ul id="testim-dots" class="dots">
+                                                                <% context.testimonials.forEach(function(testimonial) {
+                                                                    %>
+                                                                    <li class="dot active"></li>
+                                                                    <% }); %>
+
+
+                                                            </ul>
+                                                            <div id="testim-content" class="cont">
+
+
+
+                                                                <% context.testimonials.forEach(function(testimonial) {
+                                                                    %>
+                                                                    <div class="active">
+                                                                        <div class="img"><img
+                                                                                src="<%= testimonial.imageSrc %>"
+                                                                                loading="lazy" alt="">
+                                                                        </div>
+                                                                        <h2 class="img-name">
+                                                                            <%= testimonial.imageName %>
+                                                                        </h2>
+                                                                        <p style="color:white;">
+                                                                            <%= testimonial.testimonial %>
+                                                                        </p>
+                                                                    </div>
+                                                                    <% }); %>
+
+                                                            </div>
+
+
+                                                        </div>
+                                                        <% if (user) { %>
+                                                            <div style="justify-content: center" class="flex-row-start">
+                                                                <button type="button" class="btn btn-primary"
+                                                                    data-toggle="modal"
+                                                                    data-target="#testimonialModal">Create</button>
+                                                                <button type="button" class="btn btn-primary"
+                                                                    data-toggle="modal"
+                                                                    data-target="#testimonialsModal">
+                                                                    View</button>
+                                                            </div>
+                                                            <% } %>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </section>
+                                </div>
 
-            </main>
+                               
 
-            <%- include('../partials/footer'); %>
-                <!-- footer-area-end -->
+                </main>
+                <!-- main-area-emd -->
 
-                <!-- JS here -->
-                <%- include('../partials/scripts'); %>
+                <!-- footer-area -->
+                <%- include('../partials/footer'); %>
+                    <!-- footer-area-end -->
 
+                    <!-- JS here -->
+                    <%- include('../partials/scripts'); %>
+                        <%- include('../partials/testimonialModal'); %>
+
+                            <script>
+                                'use strict'
+                                var testim = document.getElementById("testim"),
+                                    testimDots = Array.prototype.slice.call(document.getElementById("testim-dots").children),
+                                    testimContent = Array.prototype.slice.call(document.getElementById("testim-content").children),
+                                    testimLeftArrow = document.getElementById("left-arrow"),
+                                    testimRightArrow = document.getElementById("right-arrow"),
+                                    testimSpeed = 4500,
+                                    currentSlide = 0,
+                                    currentActive = 0,
+                                    testimTimer,
+                                    touchStartPos,
+                                    touchEndPos,
+                                    touchPosDiff,
+                                    ignoreTouch = 30;
+                                ;
+
+                                window.onload = function () {
+
+                                    // Testim Script
+                                    function playSlide(slide) {
+                                        for (var k = 0; k < testimDots.length; k++) {
+                                            testimContent[k].classList.remove("active");
+                                            testimContent[k].classList.remove("inactive");
+                                            testimDots[k].classList.remove("active");
+                                        }
+
+                                        if (slide < 0) {
+                                            slide = currentSlide = testimContent.length - 1;
+                                        }
+
+                                        if (slide > testimContent.length - 1) {
+                                            slide = currentSlide = 0;
+                                        }
+
+                                        if (currentActive != currentSlide) {
+                                            testimContent[currentActive].classList.add("inactive");
+                                        }
+                                        testimContent[slide].classList.add("active");
+                                        testimDots[slide].classList.add("active");
+
+                                        currentActive = currentSlide;
+
+                                        clearTimeout(testimTimer);
+                                        testimTimer = setTimeout(function () {
+                                            playSlide(currentSlide += 1);
+                                        }, testimSpeed)
+                                    }
+
+                                    testimLeftArrow.addEventListener("click", function () {
+                                        playSlide(currentSlide -= 1);
+                                    })
+
+                                    testimRightArrow.addEventListener("click", function () {
+                                        playSlide(currentSlide += 1);
+                                    })
+
+                                    for (var l = 0; l < testimDots.length; l++) {
+                                        testimDots[l].addEventListener("click", function () {
+                                            playSlide(currentSlide = testimDots.indexOf(this));
+                                        })
+                                    }
+
+                                    playSlide(currentSlide);
+
+                                    // keyboard shortcuts
+                                    document.addEventListener("keyup", function (e) {
+                                        switch (e.keyCode) {
+                                            case 37:
+                                                testimLeftArrow.click();
+                                                break;
+
+                                            case 39:
+                                                testimRightArrow.click();
+                                                break;
+
+                                            case 39:
+                                                testimRightArrow.click();
+                                                break;
+
+                                            default:
+                                                break;
+                                        }
+                                    })
+
+                                    testim.addEventListener("touchstart", function (e) {
+                                        touchStartPos = e.changedTouches[0].clientX;
+                                    })
+
+                                    testim.addEventListener("touchend", function (e) {
+                                        touchEndPos = e.changedTouches[0].clientX;
+
+                                        touchPosDiff = touchStartPos - touchEndPos;
+
+                                        // console.log(touchPosDiff);
+                                        // console.log(touchStartPos);
+                                        // console.log(touchEndPos);
+
+
+                                        if (touchPosDiff > 0 + ignoreTouch) {
+                                            testimLeftArrow.click();
+                                        } else if (touchPosDiff < 0 - ignoreTouch) {
+                                            testimRightArrow.click();
+                                        } else {
+                                            return;
+                                        }
+
+                                    })
+                                }
+                            </script>
 
     </body>
 

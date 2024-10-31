@@ -1306,7 +1306,7 @@ label {
 }
 
 .zoom:hover {
-  transform: scale(1.2); /* Adjust the scale factor as needed */
+  transform: scale(1.05); /* Adjust the scale factor as needed */
 }
 
 .banner-bg {

@@ -10,14 +10,14 @@ const PackageSchema = new Schema({
     type: String,
     required: true
   },
-  description:{
-    type: String,
-    required: true
-  },
   features: [{
     type: String,
     required: true
-  }]
+  }],
+  isArchive: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const PackageModel = mongoose.model('Package', PackageSchema);

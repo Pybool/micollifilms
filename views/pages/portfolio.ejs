@@ -15,6 +15,29 @@
 
         }
 
+        .change-bg {
+      background: white !important;
+      color: black !important;
+      z-index: 1;
+    }
+
+
+        .wp-image {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: white;
+      gap: 20px;
+      background: black;
+      padding: 10px;
+      z-index: 11;
+
+    }
+
+    .wp-image>a {
+      font-size: small !important;
+    }
+
         .banner-content>h2,
             h3 {
                 font-size: 3.8rem !important
@@ -89,7 +112,20 @@
             <%- include('../partials/header'); %>
                 <main>
                     <%- include('../partials/cookiesperm'); %>
-                        <section style="background: url('<%= context?.portfolioItems[0].src %>'); margin-top: -20px;
+                    <%-'<script>'%>
+                        let _context = <%- JSON.stringify(wfcContext).replace(/</g, '\\u003c').replace(/>/g, '\\u003e') %>;
+                     <%-'</script>'%>
+         
+         
+                           <script>
+                             function ObjectId() {
+                               // Your custom logic for ObjectId (if necessary)
+                             }
+                             setContext(_context);
+                             localStorage.setItem("context", JSON.stringify(_context));
+                           </script>
+         
+                        <section style="background: url('<%= wfcContext?.portfolioItems[0].src %>'); margin-top: -20px;
                         height: 100vh;
                         -webkit-background-size: cover;
                         -moz-background-size: cover;
@@ -103,7 +139,7 @@
                                             class="banner-content astonish animated fadeInDown">
                                            
                                             <h2 class="main-h2" style="text-align:center; position: relative; z-index: 1;">
-                                                <%= context?.portfolioItems[0].desc %>
+                                                <%= wfcContext?.portfolioItems[0].desc %>
                                             </h2>
                                             <i style="color:#ffffff;font-size: larger;margin:40px!important">
                                                 <%= motto %>
@@ -137,7 +173,7 @@
                                                                         <div class="edgtf-pl-grid-sizer"></div>
                                                                         <div class="edgtf-pl-grid-gutter"></div>
                                                                         <div class="row">
-                                                                            <% context.portfolioItems.forEach(function(portfolio,
+                                                                            <% wfcContext?.portfolioItems.forEach(function(portfolio,
                                                                                 index) { %>
                                                                                 <article
                                                                                     class="edgtf-pl-item edgtf-item-space edgtf-masonry-size-default edgtf-pl-has-video post-723 portfolio-item type-portfolio-item status-publish has-post-thumbnail hentry portfolio-category-romance">
@@ -156,6 +192,51 @@
                                                                                                 data-ll-status="loaded"
                                                                                                 sizes="(max-width: 1920px) 100vw, 1920px"
                                                                                                 srcset="<%= portfolio?.src %> 1920w">
+                                                                                                <% if (user) { %>
+                                                                                                    <div style="border-radius: 10px;" class="flex-row-start wp-image">
+                                                                                                        <a href="javascript:void(0)"
+                                                                                                        onclick="loadModalData(<%= JSON.stringify(portfolio) %>)"
+                                                                                                        style="margin-right: 10px; color: white;">
+                                                                                                        <i class="fas fa-edit"
+                                                                                                            style="line-height: 1; color: white; height:10px"></i> Edit
+                                                                                                        </a>
+
+                                                                                                        <% if (portfolio.isLatest) { %>
+                                                                                                        <a href="javascript:void(0)"
+                                                                                                            onclick="toggleLatestItem(<%= JSON.stringify(portfolio?._id) %>)"
+                                                                                                            style="margin-right: 10px; color: orangered;">
+                                                                                                            <i class="fas fa-minus"
+                                                                                                            style="line-height: 1; color: orangered; height:10px"></i>
+                                                                                                            Remove From Latest</a>
+                                                                                                        <% } %>
+
+                                                                                                            <% if (!portfolio.isLatest) { %>
+                                                                                                            <a href="javascript:void(0)"
+                                                                                                                onclick="toggleLatestItem(<%= JSON.stringify(portfolio?._id) %>)"
+                                                                                                                style="margin-right: 10px; color: white;">
+                                                                                                                <i class="fas fa-plus"
+                                                                                                                style="line-height: 1; color: white; height:10px"></i>
+                                                                                                                Add to Latest</a>
+                                                                                                            <% } %>
+
+                                                                                                            <% if (!portfolio.isArchive) { %>
+                                                                                                            <a href="javascript:void(0)"
+                                                                                                                onclick="toggleArchiveItem(<%= JSON.stringify(portfolio?._id) %>)"
+                                                                                                                style="margin-right: 10px; color: white;">
+                                                                                                                <i class="fas fa-trash-alt"
+                                                                                                                style="line-height: 1; color: white; height:10px"></i>
+                                                                                                                Archive</a>
+                                                                                                            <% } %>
+                                                                                                            <% if (portfolio.isArchive) { %>
+                                                                                                            <a href="javascript:void(0)"
+                                                                                                                onclick="toggleArchiveItem(<%= JSON.stringify(portfolio?._id) %>)"
+                                                                                                                style="margin-right: 10px; color: orange;">
+                                                                                                                <i class="fas fa-undo"
+                                                                                                                style="line-height: 1; color: orange; height:10px"></i>
+                                                                                                                Unarchive</a>
+                                                                                                            <% } %>
+                                                                                                    </div>
+                                                                                                    <% } %>
 
                                                                                         </div>
                                                                                         <div
@@ -217,7 +298,9 @@
                         </section>
                 </main>
                 <%- include('../partials/footer'); %>
-                    <%- include('../partials/scripts'); %>
+                <%- include('../partials/scripts'); %>
+                <%- include('../partials/editportfolioItem'); %>
+                <%- include('../partials/testimonialModal'); %>
 
     </body>
 

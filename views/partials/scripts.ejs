@@ -108,7 +108,6 @@
     const result = validateBookingForm();
     if (result != false) {
       const url = "/api/v1/book-event"; 
-
       try {
         const response = await fetch(url, {
           method: "POST",

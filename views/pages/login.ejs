@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+<%- include('../partials/head'); %>
+  <link data-optimized="1" rel="stylesheet" id="rs-plugin-settings-css" href="/assets/css/contactsm.css" type="text/css"
+    media="all">
+  <style>
+    .image-background {
+      margin-top: -20px;
+      min-height: 100%;
+      background: url(/assets/img/micolli/compressed/CharlesMary.png) no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      transition: background-image 2s ease-in-out;
+
+    }
+
+    label{
+        font-weight: 700;
+        font-size: 18px;
+    }
+
+    .flex-col{
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: start;
+        gap: 20px;
+    }
+
+    .banner-area {
+      position: relative;
+      /* Ensure overlay and content are positioned relative to the section */
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      /* Dark overlay with transparency */
+      z-index: 0;
+      /* Put overlay behind other content */
+    }
+  </style>
+  <style>
+    /* If you wish to remove the astonish.js file, then also be sure to remove these styles. */
+    .astonish {
+      visibility: visible;
+    }
+
+    @media (min-width: 768px) {
+      .astonish {
+        visibility: hidden;
+      }
+
+      .animated {
+        visibility: visible;
+      }
+    }
+
+    @media only screen and (max-width:600px) {
+
+      h5 {
+        font-size: 13px !important
+      }
+
+      .main-text {
+        font-size: 2rem !important;
+        letter-spacing: 2px !important;
+      }
+
+      .sub-text {
+        font-size: small !important;
+        margin-top: 20px !important;
+        margin-bottom: 20px !important;
+      }
+
+      .contain {
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+  </style>
+
+  <body>
+    <!-- preloader-start -->
+    <%- include('../partials/preloader'); %>
+      <%- include('../partials/header'); %>
+        <main>
+          <!-- banner-area -->
+          <%- include('../partials/cookiesperm'); %>
+
+            <div style="z-index:0" class="edgtf-full-width container">
+              <div class="container">
+                <div class="edgtf-grid-row">
+                  <div class="edgtf-page-content-holder edgtf-grid-col-12">
+                    <div class="edgtf-row-grid-section-wrapper ">
+                      <div class="edgtf-row-grid-section">
+                        <div style="flex-direction: column-reverse;" class="row vc_row-fluid vc_custom_1525334152382">
+                          <div class="wpb_column vc_column_container vc_col-sm-12 vc_col-lg-6 vc_col-md-12">
+                            <div class="vc_column-inner">
+                              <div class="wpb_wrapper">
+                                <div class="vc_empty_space" style="height: 20px"><span
+                                    class="vc_empty_space_inner"></span></div>
+                                <div role="form" class="wpcf7 .flex-col" id="wpcf7-f4-p607-o1" lang="en-GB" dir="ltr">
+                                 
+                                    <div class="contain">
+                                      <div class="flex-col">
+                                        <div class="col-xs-12 col-md-4 col-lg-6">
+                                          <label>Username<br>
+                                            <span class="wpcf7-form-control-wrap" data-name="YourFullName"><input
+                                                type="text" id="userName" value="" class="wpcf7-form-control wpcf7-text"
+                                                aria-required="true" aria-invalid="false"
+                                                placeholder="Your User Name"></span><br>
+                                          </label>
+                                        </div>
+                                        <div class="col-xs-12 col-md-4 col-lg-6">
+                                          <label>Password<br>
+                                            <span class="wpcf7-form-control-wrap" data-name="your-password"><input
+                                                type="password" id="password" value=""
+                                                class="wpcf7-form-control wpcf7-text"
+                                                aria-required="true" aria-invalid="false"
+                                                placeholder="Your password"></span><br>
+                                          </label>
+                                        </div>
+                                        <div style="margin-left: 10px;" class="col-xs-12 text-center"><a
+                                             style="background-color: goldenrod;"
+                                            href="javascript:void(0)" id="loginButton" class="sendbtn btn" type="submit" value="SEND"
+                                            class="wpcf7-form-control has-spinner wpcf7-submit">SUBMIT</a><span
+                                            class="wpcf7-spinner"></span>
+                                        </div>
+                                      </div>
+                                      </div>
+                                      
+                                    </div>
+                                    <div class="wpcf7-response-output" aria-hidden="true"></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="vc_row wpb_row vc_row-fluid">
+                      <div class="wpb_column vc_column_container vc_col-sm-12">
+                        <div class="vc_column-inner">
+                          <div class="wpb_wrapper">
+                            <div class="vc_empty_space" style="height: 92px"><span class="vc_empty_space_inner"></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </main>
+        <script>
+            document.getElementById('loginButton').addEventListener('click', async function() {
+              const userName = document.getElementById('userName').value;
+              const password = document.getElementById('password').value;
+          
+              if (!userName || !password) {
+                alert('Please enter both username and password.');
+                return;
+              }
+          
+              try {
+                const response = await fetch('/api/login', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  credentials: 'include',
+                  body: JSON.stringify({ userName, password }),
+                });
+          
+                if (response.ok) {
+                  // Redirect to home page if login is successful
+                  window.location.href = '/';
+                } else {
+                  // Handle error
+                  const errorData = await response.json();
+                  alert("Login failed to complete");
+                }
+              } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong. Please try again.');
+              }
+            });
+          </script>
+        <%- include('../partials/footer'); %>
+
+          <%- include('../partials/scripts'); %>
+            <script>
+              function scrollToForm() {
+                const header = document.getElementById('headerText');
+                header.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start',
+                  inline: 'start',
+                });
+              }
+            </script>
+
+
+
+  </body>
+
+</html>

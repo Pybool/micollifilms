@@ -95,6 +95,18 @@
       <%- include('../partials/preloader'); %>
          <%- include('../partials/header'); %>
             <%- include('../partials/cookiesperm'); %>
+            <%-'<script>'%>
+               let _context = <%- JSON.stringify(context).replace(/</g, '\\u003c').replace(/>/g, '\\u003e') %>;
+            <%-'</script>'%>
+
+
+                  <script>
+                    function ObjectId() {
+                      // Your custom logic for ObjectId (if necessary)
+                    }
+                    setContext(_context);
+                    localStorage.setItem("context", JSON.stringify(_context));
+                  </script>
                <section style="background: url('/assets/img/micolli/compressed/DAP_6337.png'); margin-top: -20px;
             height: 100vh;
             -webkit-background-size: cover;
@@ -113,6 +125,15 @@
                               </i>
                               <a style="background: white!important;color: black; position: relative; z-index: 1;margin-top:15px;"
                                  href="/contact" class="btn">Book MICOLLI</a>
+                                 <% if (user) { %>
+                                    <div style="margin-top: 20px;" class="flex-row-start">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#packageModal">Create Package
+                                      </button>
+                                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#packageListModal">
+                                       Manage Packages
+                                   </button>
+                                    </div>
+                                 <% } %>
                            </div>
                         </div>
                      </div>
@@ -173,7 +194,8 @@
                   </div>
                </main>
                <%- include('../partials/footer'); %>
-                  <%- include('../partials/scripts'); %>
+               <%- include('../partials/scripts'); %>
+               <%- include('../partials/packagesModal'); %>
    </body>
 
 </html>

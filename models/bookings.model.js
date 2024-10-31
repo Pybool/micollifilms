@@ -34,7 +34,7 @@ const BookingSchema = new mongoose.Schema({
     preferredPackage:{
         type: String,
         required: false,
-        enum: ["mercedes", "porche", "bently", "traditional"]
+        enum: ["mercedes", "bently", "traditional", "porsche"]
     },
     moreInfo: {
         type: String,

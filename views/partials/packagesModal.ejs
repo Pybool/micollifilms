@@ -1,0 +1,292 @@
+<!-- Trigger Button -->
+<style>
+    .img-x {
+        width: 60px !important;
+        height: 60px !important;
+        cursor: pointer;
+    }
+
+    .w-100 {
+        width: 100% !important;
+    }
+
+    input.form-control {
+        width: 100% !important;
+    }
+
+    .modal-content-listing {
+        max-width: 80vw !important
+    }
+</style>
+
+
+<div id="packageListModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="packageListModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 80vw;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="packageModalLabel">Manage Packages</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="packagesContainer">
+                <!-- Dynamic package rows will be injected here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="savePackagesBtn">Save Packages</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal Structure -->
+<div id="packageModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="packageModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-lg modal-content-listing" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="packageModalLabel">Create New Package</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="packageForm" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <!-- Package Name -->
+                    <div class="form-group">
+                        <label for="packageName">Package Name</label>
+                        <input type="text" class="form-control" id="packageName" name="name"
+                            placeholder="Enter package name" required>
+                    </div>
+
+                    <!-- Features -->
+                    <div class="form-group">
+                        <label for="packageFeatures">Features</label>
+                        <textarea class="form-control" id="packageFeatures" name="features" rows="4"
+                            placeholder="Enter package features" required></textarea>
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div class="form-group">
+                        <label for="packageImage">Select Image</label>
+                        <input type="file" class="form-control-file" id="packageImage" name="image" accept="image/*"
+                            required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Package</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('packageForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        // Create a FormData object to hold the form data
+        const formData = new FormData(this);
+
+        // Make an AJAX request to your backend to handle the form submission
+        fetch('/api/add-package', {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Package created successfully!');
+                    // You can refresh the page or update the UI to show the new package
+                } else {
+                    alert('Error creating package: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+
+</script>
+
+<script>
+    const packages = getContext()
+    function renderPackages(packages) {
+        // Display packages in the modal
+        function displayPackages() {
+            const container = document.getElementById('packagesContainer');
+            container.innerHTML = ''; // Clear container
+
+            packages.forEach(pkg => {
+                // Create a row for each package
+                const row = document.createElement('div');
+                row.classList.add('row', 'mb-3', 'align-items-center');
+                row.setAttribute('data-id', pkg._id); // Associate row with package _id
+
+                // Image column
+                const imgCol = document.createElement('div');
+                imgCol.classList.add('col-md-1');
+                const img = document.createElement('img');
+                img.src = pkg.imageSrc;
+                img.alt = pkg.name;
+                img.classList.add('rounded-circle', 'img-fluid', 'img-x');
+                img.style.width = '60px'; // Adjust as necessary
+
+                // Hidden file input to upload new image
+                const fileInput = document.createElement('input');
+                fileInput.type = 'file';
+                fileInput.style.display = 'none';
+                fileInput.addEventListener('change', (e) => handleImageUpload(e, pkg._id)); // Handle image upload
+
+                // Add event listener to the image for image replacement
+                img.addEventListener('click', () => fileInput.click());
+
+                imgCol.appendChild(img);
+                imgCol.appendChild(fileInput);
+
+                // Name column
+                const nameCol = document.createElement('div');
+                nameCol.classList.add('col-md-2');
+                const nameInput = document.createElement('input');
+                nameInput.type = 'text';
+                nameInput.value = pkg.name;
+                nameInput.classList.add('form-control');
+                nameInput.addEventListener('input', () => pkg.name = nameInput.value); // Update package object
+
+                nameCol.appendChild(nameInput);
+
+                // Features column (textarea)
+                const featuresCol = document.createElement('div');
+                featuresCol.classList.add('col-md-7');
+                const featuresTextarea = document.createElement('textarea');
+                featuresTextarea.classList.add('form-control');
+                featuresTextarea.rows = '3';
+                featuresTextarea.value = pkg.features.join('\n');
+                featuresTextarea.addEventListener('input', () => pkg.features = featuresTextarea.value.split('\n')); // Update package features
+
+                featuresCol.appendChild(featuresTextarea);
+
+                // Archive/Unarchive column
+                const archiveCol = document.createElement('div');
+                archiveCol.classList.add('col-md-2', 'text-right');
+
+                const archiveLink = document.createElement('a');
+                archiveLink.href = 'javascript:void(0)';
+                archiveLink.style.marginRight = '10px';
+
+                const archiveIcon = document.createElement('i');
+                archiveIcon.classList.add('fas');
+
+                if (!pkg?.isArchive) {
+                    archiveLink.style.color = 'black';
+                    archiveLink.innerText = 'Archive';
+                    archiveIcon.classList.add('fa-trash-alt');
+                    archiveLink.onclick = () => toggleArchivePackage(pkg._id);
+                } else {
+                    archiveLink.style.color = 'orange';
+                    archiveLink.innerText = 'Unarchive';
+                    archiveIcon.classList.add('fa-undo');
+                    archiveLink.onclick = () => toggleArchivePackage(pkg._id);
+                }
+
+                archiveLink.prepend(archiveIcon); // Insert icon before text
+                archiveCol.appendChild(archiveLink);
+
+                // Append columns to row
+                row.appendChild(imgCol);
+                row.appendChild(nameCol);
+                row.appendChild(featuresCol);
+                row.appendChild(archiveCol);
+
+                // Append row to container
+                container.appendChild(row);
+            });
+        }
+
+        // Handle image upload for packages
+        function handleImageUpload(event, packageId) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('_id', packageId);
+
+            // Upload new image to the server
+            fetch('/api/upload-package-image', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Update the image source with the new image URL
+                        const packageRow = document.querySelector(`[data-id="${packageId}"]`);
+                        const img = packageRow.querySelector('img');
+                        img.src = data.newImageUrl;
+                    }
+                })
+                .catch(error => console.error('Error uploading image:', error));
+        }
+
+        // Save all packages
+        document.getElementById('savePackagesBtn').addEventListener('click', () => {
+            fetch('/api/save-packages', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(packages), // Send the updated packages to the backend
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Packages saved successfully!');
+                    } else {
+                        alert('Failed to save packages.');
+                    }
+                })
+                .catch(error => console.error('Error saving packages:', error));
+        });
+
+        displayPackages()
+
+    }
+
+    setTimeout(() => {
+        renderPackages(packages)
+    }, 2000)
+</script>
+
+
+<script>
+    async function toggleArchivePackage(id) {
+        try {
+            const response = await fetch('/api/toggle-archive-package', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ _id: id }),
+            });
+
+            if (response.ok) {
+                // Redirect to home page if login is successful
+                alert("Update successful")
+                // window.location.reload()
+            } else {
+                // Handle error
+                const errorData = await response.json();
+                alert('Login failed: ' + (errorData.message || 'Unknown error'));
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Something went wrong. Please try again.');
+        }
+    }
+</script>

@@ -1,0 +1,113 @@
+<script>
+    // Function to load video data into the modal
+    var myModal = null
+    function loadModalData(videoData) {
+        // Populate the modal fields with the video data
+        document.getElementById('videoId').value = videoData._id;
+        document.getElementById('videoType').value = videoData.type;
+        document.getElementById('videoSrc').value = videoData.src;
+        document.getElementById('videoDesc').value = videoData.desc;
+        document.getElementById('videoUrl').value = videoData.videoUrl;
+        document.getElementById('isYoutube').value = videoData.isYoutube;
+        document.getElementById('isLatest').value = videoData.isLatest;
+
+        // Show the modal
+        myModal = new bootstrap.Modal(document.getElementById('editModal'));
+        myModal.show();
+    }
+
+    function closeModal(){
+        myModal.hide();
+    }
+
+    // Function to save changes
+    function saveChanges() {
+        const videoData = {
+            _id: document.getElementById('videoId').value,
+            type: document.getElementById('videoType').value,
+            src: document.getElementById('videoSrc').value,
+            desc: document.getElementById('videoDesc').value,
+            videoUrl: document.getElementById('videoUrl').value,
+            isYoutube: document.getElementById('isYoutube').value === 'true',
+            isLatest: document.getElementById('isLatest').value === 'true',
+            isArchive: document.getElementById('isArchive').value === 'true'
+        };
+        videoData.src = `https://i.ytimg.com/vi/${videoData.videoUrl.split("embed/")[1]}/maxresdefault.jpg`
+
+        // You can then send this updated videoData to your server using Fetch or Ajax
+        fetch(`/api/update-portfolio-item`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(videoData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                closeModal()
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+</script>
+
+
+<!-- Modal Structure -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Video Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="closeModal()" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <input hidden disabled style="width: 100%!important;" type="text" class="form-control" id="videoId" readonly>
+                    <div class="mb-3">
+                        <label for="videoType" class="form-label">Type</label>
+                        <input style="width: 100%!important;" type="text" class="form-control" id="videoType">
+                    </div>
+                    <div class="mb-3">
+                        <label for="videoSrc" class="form-label">Image Source (Auto-Generated)</label>
+                        <input disabled style="width: 100%!important;" type="text" class="form-control" id="videoSrc">
+                    </div>
+                    <div class="mb-3">
+                        <label for="videoDesc" class="form-label">Description</label>
+                        <input style="width: 100%!important;" type="text" class="form-control" id="videoDesc">
+                    </div>
+                    <div class="mb-3">
+                        <label for="videoUrl" class="form-label">Video URL (link)</label>
+                        <input style="width: 100%!important;" type="text" class="form-control" id="videoUrl">
+                    </div>
+                    <div class="mb-3">
+                        <label for="isYoutube" class="form-label">Is YouTube Video?</label>
+                        <select class="form-control" id="isYoutube">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="isLatest" class="form-label">Is Latest?</label>
+                        <select class="form-control" id="isLatest">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="isArchive" class="form-label">Is Archived?</label>
+                        <select class="form-control" id="isArchive">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div style="z-index: 1052!important;" class="modal-footer">
+                <button style=" cursor: pointer!important;" type="button" class="btn btn-secondary" onclick="closeModal()" data-bs-dismiss="modal">Close</button>
+                <button style=" cursor: pointer!important;" type="button" class="btn btn-primary" onclick="saveChanges()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

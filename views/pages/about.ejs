@@ -13,6 +13,12 @@
 
     }
 
+    .change-bg {
+      background: white !important;
+      color: black !important;
+      z-index: 1;
+    }
+
     .flex-row-wrap {
       display: flex;
       flex-direction: row;
@@ -88,7 +94,19 @@
         <main>
           <!-- banner-area -->
           <%- include('../partials/cookiesperm'); %>
-            <section style="background: url('<%= context.bannerImage.image %>'); margin-top: -20px;
+          <%-'<script>'%>
+            let _context = <%- JSON.stringify(context).replace(/</g, '\\u003c').replace(/>/g, '\\u003e') %>;
+         <%-'</script>'%>
+
+
+               <script>
+                 function ObjectId() {
+                   // Your custom logic for ObjectId (if necessary)
+                 }
+                 setContext(_context);
+                 localStorage.setItem("context", JSON.stringify(_context));
+               </script>
+            <section id="image-background" style="background: url('<%= context.bannerImage %>'); margin-top: -20px;
             height: 100vh;
             -webkit-background-size: cover;
             -moz-background-size: cover;
@@ -100,6 +118,12 @@
                   <div class="col-12">
                     <div style="display:flex; flex-direction:column;justify-content: center;align-items: center;"
                       class="banner-content astonish animated fadeInDown">
+                      <% if (user) { %>
+                        <a class="btn change-bg" onclick="selectBackgroundImage()" href="javascript:void(0)">
+                          <i class="fas fa-pen" style="line-height: 1; color: black;"></i>
+                          Change Background</a>
+                          <input onchange="changeAboutBg(event)" type="file" id="backgroundImageInput" style="display: none;" accept="image/*" />
+                        <% } %>
                       <h2 style="text-align:center; position: relative; z-index: 1;">ABOUT US</h2>
                       <i style="color:white;font-size: larger;margin:40px!important">
                         <%= motto %>
@@ -140,55 +164,77 @@
                         </div>
                       </div>
                     </div> -->
-                    <div class="wpb_column vc_column_container vc_col-sm-4">
-                      <div class="vc_column-inner">
-                        <div class="wpb_wrapper">
-                          <div class="edgtf-elements-holder   edgtf-one-column  edgtf-responsive-mode-768 ">
-                            <div class="edgtf-eh-item    " data-item-class="edgtf-eh-custom-5927" data-680="12px 0 0 0">
-                              <div class="edgtf-eh-item-inner">
-                                <div class="edgtf-eh-item-content edgtf-eh-custom-5927" style="padding: 12px 6% 0 0">
-                                  <div class="wpb_text_column wpb_content_element ">
-                                    <div class="wpb_wrapper">
-                                      <span class="edgtf-dropcaps edgtf-normal" style="color: #000">
-                                        <span class="edgtf-dropcaps-inner">
-                                          H </span>
-                                      </span>
-                                      <p class="big">aving work from a diverse career in TV, covering sports and
-                                        commercials. Transitioning to wedding cinematographer was initially a hobby but
-                                        soon became a passion. With a strong admiration for cinema, my inspiration came
-                                        from a notable cinematographer, striving to produce the best possible movies.
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="wpb_column vc_column_container vc_col-sm-4">
-                      <div class="vc_column-inner">
-                        <div class="wpb_wrapper">
-                          <div class="edgtf-elements-holder   edgtf-one-column  edgtf-responsive-mode-768 ">
-                            <div class="edgtf-eh-item    " data-item-class="edgtf-eh-custom-7859">
-                              <div class="edgtf-eh-item-inner">
-                                <div class="edgtf-eh-item-content edgtf-eh-custom-7859">
-                                  <div class="wpb_text_column wpb_content_element ">
-                                    <div class="wpb_wrapper">
-                                      <p class="big">My goal is to capture and convey authentic love stories through a
-                                        documentary-style approach with narrative elements, ensuring each film is of
-                                        high quality and tailored to each couple’s unique personality.
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <% 
+    const fullText = context?.text;
+
+    // Extract the first letter
+const firstLetter = fullText.charAt(0);
+
+// Remove the first letter and handle the rest of the text
+const remainingText = fullText.slice(1);
+
+// Find the midpoint
+const splitIndex = Math.floor(remainingText.length / 2);
+
+// Find the nearest space to the splitIndex to ensure we don't cut a word
+const nearestSpace = remainingText.lastIndexOf(' ', splitIndex);
+
+// If no space is found (which is very rare), fall back to the original split index
+const actualSplitIndex = nearestSpace > -1 ? nearestSpace : splitIndex;
+
+// Split the text into two parts
+const remainingFirstPart = remainingText.substring(0, actualSplitIndex);
+const secondPart = remainingText.substring(actualSplitIndex + 1);
+%>
+                    <!-- First Column (with drop cap) -->
+<div class="wpb_column vc_column_container vc_col-sm-8">
+  <div class="vc_column-inner">
+    <div class="wpb_wrapper">
+      <div class="edgtf-elements-holder edgtf-one-column edgtf-responsive-mode-768">
+        <div class="edgtf-eh-item" data-item-class="edgtf-eh-custom-5927" data-680="12px 0 0 0">
+          <div class="edgtf-eh-item-inner">
+            <div class="edgtf-eh-item-content edgtf-eh-custom-5927" style="padding: 12px 6% 0 0">
+              <div class="wpb_text_column wpb_content_element">
+                <div class="wpb_wrapper">
+                  <!-- First letter as drop cap -->
+                  <span class="edgtf-dropcaps edgtf-normal" style="color: #000">
+                    <span class="edgtf-dropcaps-inner">
+                      <%= firstLetter %>
+                    </span>
+                  </span>
+                  <!-- First part of the content -->
+                  <p class="big"><%= remainingFirstPart %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Second Column -->
+<div class="wpb_column vc_column_container vc_col-sm-4">
+  <div class="vc_column-inner">
+    <div class="wpb_wrapper">
+      <div class="edgtf-elements-holder edgtf-one-column edgtf-responsive-mode-768">
+        <div class="edgtf-eh-item" data-item-class="edgtf-eh-custom-7859">
+          <div class="edgtf-eh-item-inner">
+            <div class="edgtf-eh-item-content edgtf-eh-custom-7859">
+              <div class="wpb_text_column wpb_content_element">
+                <div class="wpb_wrapper">
+                  <!-- Second part of the content -->
+                  <p class="big"><%= secondPart %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
                   </div>
                 </div>
               </div>

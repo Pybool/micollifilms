@@ -2,18 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const HomePageSchema = new Schema({
-  bannerImages: [
-    {
-      image: {
-        type: String,
-        required: true
-      },
-      page: {
-        type: String,
-        required: true
-      }
-    }
-  ],
+  bannerImages: {
+    type: String,
+    required: false
+  },
   motto: {
     type: String,
     required: false
